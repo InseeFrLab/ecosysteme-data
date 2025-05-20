@@ -1,9 +1,0 @@
-website:
-  title: "Formation S3"
-  sidebar:
-    style: 'docked'
-    contents:
-      - section: "Fondamentaux"
-        contents: 
-          - text: "Types de base et variables"
-            href: source/fundamentals/tutorial.qmd
