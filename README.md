@@ -1,4 +1,4 @@
-# Formation - Initiation à Python
+# Formation - Initiation à s3
 
 *Auteurs : Ines Hiverlet et Olivier Levitt*
 
