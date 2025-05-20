@@ -1,0 +1,20 @@
+::: {.content-visible when-profile="fr"}
+# S3 Les Fondamentaux 
+
+## WIP
+
+```
+some code here
+
+```
+
+::: {.cell .markdown}
+
+<details>
+<summary>Afficher la solution</summary>
+
+Une solution
+
+</details>
+
+:::
