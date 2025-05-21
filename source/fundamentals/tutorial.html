@@ -135,7 +135,18 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#s3-les-fondamentaux" id="toc-s3-les-fondamentaux" class="nav-link active" data-scroll-target="#s3-les-fondamentaux">S3 Les Fondamentaux</a>
   <ul class="collapse">
-  <li><a href="#wip" id="toc-wip" class="nav-link" data-scroll-target="#wip">WIP</a></li>
+  <li><a href="#s3-une-api-http" id="toc-s3-une-api-http" class="nav-link" data-scroll-target="#s3-une-api-http">S3 : Une API HTTP</a>
+  <ul class="collapse">
+  <li><a href="#authentification" id="toc-authentification" class="nav-link" data-scroll-target="#authentification">Authentification</a></li>
+  </ul></li>
+  <li><a href="#un-client-pour-communiquer-avec-s3" id="toc-un-client-pour-communiquer-avec-s3" class="nav-link" data-scroll-target="#un-client-pour-communiquer-avec-s3">Un client pour communiquer avec S3</a></li>
+  <li><a href="#service-account" id="toc-service-account" class="nav-link" data-scroll-target="#service-account">Service account</a></li>
+  </ul></li>
+  <li><a href="#duckdb" id="toc-duckdb" class="nav-link" data-scroll-target="#duckdb">Duckdb 🦆</a>
+  <ul class="collapse">
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration">Configuration</a></li>
+  <li><a href="#première-utilisation" id="toc-première-utilisation" class="nav-link" data-scroll-target="#première-utilisation">Première utilisation</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -148,10 +159,69 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="s3-les-fondamentaux" class="level1">
 <h1>S3 Les Fondamentaux</h1>
-<section id="wip" class="level2">
-<h2 class="anchored" data-anchor-id="wip">WIP</h2>
-<pre><code>some code here
-</code></pre>
+<section id="s3-une-api-http" class="level2">
+<h2 class="anchored" data-anchor-id="s3-une-api-http">S3 : Une API HTTP</h2>
+<p>S3 est une API REST HTTP. Des requêtes HTTP sont utilisées pour obtenir, ajouter, envoyer et supprimer des données. Afin de communiquer avec l’api nous devrons donc disposer de son URL.</p>
+<p>Par exemple: - AWS S3 : http://s3.amazonaws.com/ - qui est très souvent configuré par défaut, autant pour les librairies que pour les clients. - SSP CLOUD : https://minio.lab.sspcloud.fr - LS3 : minio.datascience.kube.insee.fr - pour un usage interne : minio.dev.kube.insee.fr …</p>
+<section id="authentification" class="level3">
+<h3 class="anchored" data-anchor-id="authentification">Authentification</h3>
+<p>Ces APIs étant généralement sécurisées, il faudra des informations d’authentification (credentials) pour communiquer avec l’API afin qu’elle sache qui vous êtes et ce qu’il vous est permis de faire. Ainsi, nous disposeront d’une <em>access key</em>, d’une <em>secret key</em> ainsi que d’un jeton de session ou <em>token</em> utilisé dans le cadre d’une authentification temporaire.</p>
+<p>Pourront être utilisées les variables d’environnements suivantes: elles sont généralement reconnus par les librairies</p>
+<p>AWS_ACCESS_KEY_ID=my_access_key AWS_SECRET_ACCESS_KEY=my_secret_key AWS_SESSION_TOKEN = my_session_token ENDPOINT_URL = s3_endpoint</p>
+<p>Pour récupérer vos credentials, vous pouvez vous rendre sur - LS3 / SSPCLOUD : onglet my account &gt; Connect to storage et sélectionner <code>shell environment variable</code></p>
+</section>
+</section>
+<section id="un-client-pour-communiquer-avec-s3" class="level2">
+<h2 class="anchored" data-anchor-id="un-client-pour-communiquer-avec-s3">Un client pour communiquer avec S3</h2>
+<p>Afin de simplifier les intéractions avec l’API S3, nous allons utiliser un client s3. Cela permettra de gérer l’authentification de manière automatique. Il nous permettra également d’automatiser des transferts de fichiers, de naviguer facilement dans les buckets en ligne de commande.</p>
+<p>Des exemples de clients s3: - mc (Minio Client) : compatible pour tout service compatible s3 - s3cmd - aws cli : outil officiel pour intéragir avec Amazon S3</p>
+<p>Pour configurer mc : une variable d’environnement suffit : MC_HOST_ALIAS = “https://<access key="">:<secret key="">:<session token="">@<your-s3-endpoint>” exemple:</your-s3-endpoint></session></secret></access></p>
+<pre><code>export MC_HOST_s3 = "https://$AWS_ACCESS_KEY_ID$:AWS_SECRET_ACCESS_KEY:AWS_SESSION_TOKEN@$ENDPOINT_URL$"</code></pre>
+<p>Une fois le tout configuré, nous pouvons lister le contenu de notre bucket</p>
+<pre><code>mc ls s3/my-bucket</code></pre>
+<p>copier un fichier</p>
+<pre><code>mc cp s3/my-bucket/my-file.txt s3/my-bucket/somewhere-else/my-file.txt</code></pre>
+<p>le télécharger</p>
+<pre><code>mc get s3/my-bucket/my-file.txt ./data/my-file.txt</code></pre>
+<p>le supprimer</p>
+<pre><code>mc rm s3/my-bucket/my-file.txt</code></pre>
+<p>le téléverser</p>
+<pre><code>mc put ./data/my-file.txt s3/my-bucket/my-second-file.txt</code></pre>
+<p>Définir un lien d’accès à un fichier</p>
+<p>La commande <code>mc share download</code> génère une URL pré-signée contenant les identifiants d’accès intégrés, permettant de télécharger des objets depuis un bucket.</p>
+<pre><code>mc share download --expire DURATION ALIAS/PATH</code></pre>
+</section>
+<section id="service-account" class="level2">
+<h2 class="anchored" data-anchor-id="service-account">Service account</h2>
+<p>Au delà de votre compte personnel, vous avez la possibilité de créer un compte de service ou <em>service account</em>. A la différence de votre compte personnel, les credentials du service account seront permanents. Vous ne disposerez donc pas d’un session token, seulement d’une access key et secret key. Les services account sont généralement utilisés par des applications ou scripts pour accéder aux ressources s3.</p>
+<p>Pour créer un compte de service, c’est à dire une paire <em>access-key</em> <em>secret-key</em> :</p>
+<pre><code>mc admin accesskey create        \
+   s3/ myuser               \
+   --access-key myuseraccesskey  \
+   --secret-key myusersecretkey  \</code></pre>
+<p>NB : Anciennement on utilisait <code>mc admin user svcacct add</code> mais cette façon de faire est désormais dépréciée.</p>
+<p>⚠️ le service account sera créé avec vos droits actuels, si vous souhaitez une gestion plus fine (accès sur un certain dossier, en lecture seulement…), il vous sera possible de définir une policy (fichier JSON qui déclare qui peut agir, sur quoi on peut agir et quelles actions sont effectuables). Pour les plus curieux, <a href="https://min.io/docs/minio/linux/reference/minio-mc-admin/mc-admin-policy-create.html">nous renverrons à la documentation de minio</a></p>
+<p>Ainsi, si vous écrivez un script ou un service qui accède souvent à S3, utilisez un service account avec des clés gérées proprement (seulement les droits nécessaires, stockées de façon sécurisée…). En revanche, si vous voulez accéder à s3 de façon intéractive, utilisez des clés temporaires avec un session token.</p>
+</section>
+</section>
+<section id="duckdb" class="level1">
+<h1>Duckdb 🦆</h1>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p>Pour instaler duckdb, il n’y a rien de plus simple que se rendre sur <a href="https://duckdb.org/docs/installation/?version=stable&amp;environment=cli&amp;platform=linux&amp;download_method=direct&amp;architecture=x86_64">leur site documentaire</a> et sélectionner notre cas d’usage : en l’occurence en ligne de commande.</p>
+</section>
+<section id="configuration" class="level2">
+<h2 class="anchored" data-anchor-id="configuration">Configuration</h2>
+<p>Pour configurer la cli vous avez la possibilité de créer un fichier <code>.duckdbrc</code> à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d’exécuter du code au lancement de votre session duckdb.</p>
+<pre><code>.prompt 'duckdb&gt;'
+CREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN "env;config", PROFILE 'default',  ENDPOINT "minio.lab.sspcloud.fr" );</code></pre>
+</section>
+<section id="première-utilisation" class="level2">
+<h2 class="anchored" data-anchor-id="première-utilisation">Première utilisation</h2>
+<p>in memory avec un fichier local</p>
+<p>Tips .once .timer on</p>
+<p>Lire un fichier parquet parquet c’est quoi ?</p>
+<p>Blob syntax pour lire plusieurs fichiers des requêtes : filtre sur des colonnes -&gt; c’est rapide</p>
 <div class="cell markdown">
 <details>
 <summary>

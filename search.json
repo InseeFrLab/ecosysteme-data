@@ -4,18 +4,73 @@
     "href": "source/fundamentals/tutorial.html",
     "title": "S3 Les Fondamentaux",
     "section": "",
-    "text": "some code here\n\n\n\n\nAfficher la solution\n\nUne solution",
+    "text": "S3 est une API REST HTTP. Des requêtes HTTP sont utilisées pour obtenir, ajouter, envoyer et supprimer des données. Afin de communiquer avec l’api nous devrons donc disposer de son URL.\nPar exemple: - AWS S3 : http://s3.amazonaws.com/ - qui est très souvent configuré par défaut, autant pour les librairies que pour les clients. - SSP CLOUD : https://minio.lab.sspcloud.fr - LS3 : minio.datascience.kube.insee.fr - pour un usage interne : minio.dev.kube.insee.fr …\n\n\nCes APIs étant généralement sécurisées, il faudra des informations d’authentification (credentials) pour communiquer avec l’API afin qu’elle sache qui vous êtes et ce qu’il vous est permis de faire. Ainsi, nous disposeront d’une access key, d’une secret key ainsi que d’un jeton de session ou token utilisé dans le cadre d’une authentification temporaire.\nPourront être utilisées les variables d’environnements suivantes: elles sont généralement reconnus par les librairies\nAWS_ACCESS_KEY_ID=my_access_key AWS_SECRET_ACCESS_KEY=my_secret_key AWS_SESSION_TOKEN = my_session_token ENDPOINT_URL = s3_endpoint\nPour récupérer vos credentials, vous pouvez vous rendre sur - LS3 / SSPCLOUD : onglet my account &gt; Connect to storage et sélectionner shell environment variable\n\n\n\n\nAfin de simplifier les intéractions avec l’API S3, nous allons utiliser un client s3. Cela permettra de gérer l’authentification de manière automatique. Il nous permettra également d’automatiser des transferts de fichiers, de naviguer facilement dans les buckets en ligne de commande.\nDes exemples de clients s3: - mc (Minio Client) : compatible pour tout service compatible s3 - s3cmd - aws cli : outil officiel pour intéragir avec Amazon S3\nPour configurer mc : une variable d’environnement suffit : MC_HOST_ALIAS = “https://::@” exemple:\nexport MC_HOST_s3 = \"https://$AWS_ACCESS_KEY_ID$:AWS_SECRET_ACCESS_KEY:AWS_SESSION_TOKEN@$ENDPOINT_URL$\"\nUne fois le tout configuré, nous pouvons lister le contenu de notre bucket\nmc ls s3/my-bucket\ncopier un fichier\nmc cp s3/my-bucket/my-file.txt s3/my-bucket/somewhere-else/my-file.txt\nle télécharger\nmc get s3/my-bucket/my-file.txt ./data/my-file.txt\nle supprimer\nmc rm s3/my-bucket/my-file.txt\nle téléverser\nmc put ./data/my-file.txt s3/my-bucket/my-second-file.txt\nDéfinir un lien d’accès à un fichier\nLa commande mc share download génère une URL pré-signée contenant les identifiants d’accès intégrés, permettant de télécharger des objets depuis un bucket.\nmc share download --expire DURATION ALIAS/PATH\n\n\n\nAu delà de votre compte personnel, vous avez la possibilité de créer un compte de service ou service account. A la différence de votre compte personnel, les credentials du service account seront permanents. Vous ne disposerez donc pas d’un session token, seulement d’une access key et secret key. Les services account sont généralement utilisés par des applications ou scripts pour accéder aux ressources s3.\nPour créer un compte de service, c’est à dire une paire access-key secret-key :\nmc admin accesskey create        \\\n   s3/ myuser               \\\n   --access-key myuseraccesskey  \\\n   --secret-key myusersecretkey  \\\nNB : Anciennement on utilisait mc admin user svcacct add mais cette façon de faire est désormais dépréciée.\n⚠️ le service account sera créé avec vos droits actuels, si vous souhaitez une gestion plus fine (accès sur un certain dossier, en lecture seulement…), il vous sera possible de définir une policy (fichier JSON qui déclare qui peut agir, sur quoi on peut agir et quelles actions sont effectuables). Pour les plus curieux, nous renverrons à la documentation de minio\nAinsi, si vous écrivez un script ou un service qui accède souvent à S3, utilisez un service account avec des clés gérées proprement (seulement les droits nécessaires, stockées de façon sécurisée…). En revanche, si vous voulez accéder à s3 de façon intéractive, utilisez des clés temporaires avec un session token.",
     "crumbs": [
       "Fondamentaux",
       "Types de base et variables"
     ]
   },
   {
-    "objectID": "source/fundamentals/tutorial.html#wip",
-    "href": "source/fundamentals/tutorial.html#wip",
+    "objectID": "source/fundamentals/tutorial.html#s3-une-api-http",
+    "href": "source/fundamentals/tutorial.html#s3-une-api-http",
     "title": "S3 Les Fondamentaux",
     "section": "",
-    "text": "some code here\n\n\n\n\nAfficher la solution\n\nUne solution",
+    "text": "S3 est une API REST HTTP. Des requêtes HTTP sont utilisées pour obtenir, ajouter, envoyer et supprimer des données. Afin de communiquer avec l’api nous devrons donc disposer de son URL.\nPar exemple: - AWS S3 : http://s3.amazonaws.com/ - qui est très souvent configuré par défaut, autant pour les librairies que pour les clients. - SSP CLOUD : https://minio.lab.sspcloud.fr - LS3 : minio.datascience.kube.insee.fr - pour un usage interne : minio.dev.kube.insee.fr …\n\n\nCes APIs étant généralement sécurisées, il faudra des informations d’authentification (credentials) pour communiquer avec l’API afin qu’elle sache qui vous êtes et ce qu’il vous est permis de faire. Ainsi, nous disposeront d’une access key, d’une secret key ainsi que d’un jeton de session ou token utilisé dans le cadre d’une authentification temporaire.\nPourront être utilisées les variables d’environnements suivantes: elles sont généralement reconnus par les librairies\nAWS_ACCESS_KEY_ID=my_access_key AWS_SECRET_ACCESS_KEY=my_secret_key AWS_SESSION_TOKEN = my_session_token ENDPOINT_URL = s3_endpoint\nPour récupérer vos credentials, vous pouvez vous rendre sur - LS3 / SSPCLOUD : onglet my account &gt; Connect to storage et sélectionner shell environment variable",
+    "crumbs": [
+      "Fondamentaux",
+      "Types de base et variables"
+    ]
+  },
+  {
+    "objectID": "source/fundamentals/tutorial.html#un-client-pour-communiquer-avec-s3",
+    "href": "source/fundamentals/tutorial.html#un-client-pour-communiquer-avec-s3",
+    "title": "S3 Les Fondamentaux",
+    "section": "",
+    "text": "Afin de simplifier les intéractions avec l’API S3, nous allons utiliser un client s3. Cela permettra de gérer l’authentification de manière automatique. Il nous permettra également d’automatiser des transferts de fichiers, de naviguer facilement dans les buckets en ligne de commande.\nDes exemples de clients s3: - mc (Minio Client) : compatible pour tout service compatible s3 - s3cmd - aws cli : outil officiel pour intéragir avec Amazon S3\nPour configurer mc : une variable d’environnement suffit : MC_HOST_ALIAS = “https://::@” exemple:\nexport MC_HOST_s3 = \"https://$AWS_ACCESS_KEY_ID$:AWS_SECRET_ACCESS_KEY:AWS_SESSION_TOKEN@$ENDPOINT_URL$\"\nUne fois le tout configuré, nous pouvons lister le contenu de notre bucket\nmc ls s3/my-bucket\ncopier un fichier\nmc cp s3/my-bucket/my-file.txt s3/my-bucket/somewhere-else/my-file.txt\nle télécharger\nmc get s3/my-bucket/my-file.txt ./data/my-file.txt\nle supprimer\nmc rm s3/my-bucket/my-file.txt\nle téléverser\nmc put ./data/my-file.txt s3/my-bucket/my-second-file.txt\nDéfinir un lien d’accès à un fichier\nLa commande mc share download génère une URL pré-signée contenant les identifiants d’accès intégrés, permettant de télécharger des objets depuis un bucket.\nmc share download --expire DURATION ALIAS/PATH",
+    "crumbs": [
+      "Fondamentaux",
+      "Types de base et variables"
+    ]
+  },
+  {
+    "objectID": "source/fundamentals/tutorial.html#service-account",
+    "href": "source/fundamentals/tutorial.html#service-account",
+    "title": "S3 Les Fondamentaux",
+    "section": "",
+    "text": "Au delà de votre compte personnel, vous avez la possibilité de créer un compte de service ou service account. A la différence de votre compte personnel, les credentials du service account seront permanents. Vous ne disposerez donc pas d’un session token, seulement d’une access key et secret key. Les services account sont généralement utilisés par des applications ou scripts pour accéder aux ressources s3.\nPour créer un compte de service, c’est à dire une paire access-key secret-key :\nmc admin accesskey create        \\\n   s3/ myuser               \\\n   --access-key myuseraccesskey  \\\n   --secret-key myusersecretkey  \\\nNB : Anciennement on utilisait mc admin user svcacct add mais cette façon de faire est désormais dépréciée.\n⚠️ le service account sera créé avec vos droits actuels, si vous souhaitez une gestion plus fine (accès sur un certain dossier, en lecture seulement…), il vous sera possible de définir une policy (fichier JSON qui déclare qui peut agir, sur quoi on peut agir et quelles actions sont effectuables). Pour les plus curieux, nous renverrons à la documentation de minio\nAinsi, si vous écrivez un script ou un service qui accède souvent à S3, utilisez un service account avec des clés gérées proprement (seulement les droits nécessaires, stockées de façon sécurisée…). En revanche, si vous voulez accéder à s3 de façon intéractive, utilisez des clés temporaires avec un session token.",
+    "crumbs": [
+      "Fondamentaux",
+      "Types de base et variables"
+    ]
+  },
+  {
+    "objectID": "source/fundamentals/tutorial.html#installation",
+    "href": "source/fundamentals/tutorial.html#installation",
+    "title": "S3 Les Fondamentaux",
+    "section": "Installation",
+    "text": "Installation\nPour instaler duckdb, il n’y a rien de plus simple que se rendre sur leur site documentaire et sélectionner notre cas d’usage : en l’occurence en ligne de commande.",
+    "crumbs": [
+      "Fondamentaux",
+      "Types de base et variables"
+    ]
+  },
+  {
+    "objectID": "source/fundamentals/tutorial.html#configuration",
+    "href": "source/fundamentals/tutorial.html#configuration",
+    "title": "S3 Les Fondamentaux",
+    "section": "Configuration",
+    "text": "Configuration\nPour configurer la cli vous avez la possibilité de créer un fichier .duckdbrc à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d’exécuter du code au lancement de votre session duckdb.\n.prompt 'duckdb&gt;'\nCREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN \"env;config\", PROFILE 'default',  ENDPOINT \"minio.lab.sspcloud.fr\" );",
+    "crumbs": [
+      "Fondamentaux",
+      "Types de base et variables"
+    ]
+  },
+  {
+    "objectID": "source/fundamentals/tutorial.html#première-utilisation",
+    "href": "source/fundamentals/tutorial.html#première-utilisation",
+    "title": "S3 Les Fondamentaux",
+    "section": "Première utilisation",
+    "text": "Première utilisation\nin memory avec un fichier local\nTips .once .timer on\nLire un fichier parquet parquet c’est quoi ?\nBlob syntax pour lire plusieurs fichiers des requêtes : filtre sur des colonnes -&gt; c’est rapide\n\n\n\nAfficher la solution\n\nUne solution",
     "crumbs": [
       "Fondamentaux",
       "Types de base et variables"
