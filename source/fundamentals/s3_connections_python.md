@@ -1,0 +1,119 @@
+# Se connecter à S3
+
+Pour configurer sa connection à s3, des variables d'environnement et fichiers de configuration sont reconnus par la plupart des librairies. Ainsi, si seul un endpoint est utilisé, on pourra souvent se contenter d'utiliser des variables d'environnement (`AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_DEFAULT_REGION, ENDPOINT_URL`).
+Au delà d'un endpoint, et afin de gagner en flexibilité, il est possible de créer des fichiers de configuration situés à la racine du répertoire utilisateur ($HOME). Les fichiers sont découpés en `profiles` permettant de configurer différents paramètres et credentials. Le fichier `.aws/config` permet de définir les endpoints d'intérêt, tandis que le fichier `.aws/credentials` sert à stocker les credentials associés. Par défaut, s'il existe, le profil `default` sera utilisé.
+
+`.aws/config`
+```
+[default]
+region = us-east-1
+endpoint_url = https://my-minio
+
+[profile test]
+region = us-east-1
+endpoint_url = https://my-minio2
+
+```
+
+`.aws/credentials`
+```
+[default]
+aws_access_key_id = default_access_key
+aws_secret_access_key = default_secret_access_key
+aws_session_token = default_token
+
+[test]
+aws_access_key_id = test_access_key
+aws_secret_access_key = test_secret_acess_key
+```
+
+
+## En  utilisant s3fs
+
+```
+import s3fs
+
+fs = s3fs.S3FileSystem(
+    client_kwargs={'endpoint_url': ENDPOINT_URL},
+    key = AWS_ACCESS_KEY_ID, 
+    secret = AWS_SECRET_ACCESS_KEY, 
+    token = AWS_SESSION_TOKEN"),
+
+```
+
+Avec des fichiers de config
+
+```
+import s3fs
+
+fs = s3fs.S3FileSystem()
+files = fs.ls('inesh')
+print(files)
+```
+Si on veut changer de profil
+```
+import s3fs
+
+fs = s3fs.S3FileSystem(profile="toto")
+files = fs.ls('inesh')
+print(files)
+```
+
+## En utilisant boto3
+
+```
+import boto3
+
+client = boto3.client(
+    's3',
+    aws_access_key_id=ACCESS_KEY,
+    aws_secret_access_key=SECRET_KEY,
+    aws_session_token=SESSION_TOKEN,
+    endpoint_url=ENDPOINT_URL,
+)
+```
+Avec des fichiers de config, 
+
+```
+import boto3
+client = boto3.client('s3)
+
+response = client.list_objects_v2(Bucket='inesh')
+print(response)
+
+```
+Si on veut changer de profil
+
+```
+import boto3
+
+session = boto3.Session(profile_name='toto')
+s3_client = session.client(service_name='s3')
+
+```
+
+## En utilisant pandas
+
+```
+import pandas as pd
+import s3fs
+
+s3 = s3fs.S3FileSystem()
+df = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')
+
+```
+
+## En utilisant pyarrow
+
+```
+import s3fs
+import pyarrow.parquet as pq
+
+s3 = s3fs.S3FileSystem()
+df = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)
+
+```
+
+
+
+
