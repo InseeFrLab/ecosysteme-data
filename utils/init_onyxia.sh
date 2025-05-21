@@ -9,7 +9,7 @@ CLONE_DIR=${WORK_DIR}/repo-git
 CHAPTER_DIR=${CLONE_DIR}/source/${SECTION}/${CHAPTER}
 
 # Clone course repository
-REPO_URL=https://github.com/InseeFrLab/formation-python-initiation.git
+REPO_URL=https://github.com/InseeFrLab/formation-s3-initiation.git
 git clone --depth 1 $REPO_URL $CLONE_DIR
 
 # Install additional packages if a requirements.txt file is present
