@@ -28,11 +28,6 @@ Pour approfondir sa connaissance après cette formation d'introduction, rien de 
 
 
 
-
-
-
-
-
 ::: {.content-visible when-profile="en"}
 # Introductory training to `S3`
 
