@@ -116,7 +116,7 @@ le supprimer
 ```
 mc rm s3/my-bucket/my-file.txt
 ```
-le téléverser
+l'uploader
 ```
 mc cp ./data/my-file.txt s3/my-bucket/my-second-file.txt
 ```
