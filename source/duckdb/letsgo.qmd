@@ -2,40 +2,37 @@
 
 ## Installation
 
-Pour instaler duckdb, il n'y a rien de plus simple que se rendre sur [leur site documentaire](https://duckdb.org/docs/installation/?version=stable&environment=cli&platform=linux&download_method=direct&architecture=x86_64) et sélectionner notre cas d'usage : en l'occurence en ligne de commande.
+Vous pouvez utiliser DuckDB de plein de manières différentes. Ici on va tout faire en ligne de commande (CLI) mais vous être encouragés à tester les SDK de vos langages préférés !  
 
-## Configuration 
+DuckDB CLI est distribué sous forme de binaire standalone, téléchargeable directement sur [leur site documentaire](https://duckdb.org/docs/installation/?version=stable&environment=cli&platform=linux&download_method=direct&architecture=x86_64).  
+Il est par ailleurs préinstallé dans la majorité des environnements modernes de datascience dont les environnements lancés par [Onyxia](https://onyxia.sh)
 
-Pour configurer la cli vous avez la possibilité de créer un fichier `.duckdbrc` à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d'exécuter du code au lancement de votre session duckdb.
+## Première utilisation
+
+Lancer `duckdb` :  
+
+```shell
+gon@laboitemagique:~$ duckdb
+v1.2.2 7c039464e4
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+```  
+
+On constate bien que `duckdb` travaille uniquement en mémoire (`transient in-memory database`). Toutes les données seront donc perdues à la fin de la session.  
+Si on veut qu'il sauvegarde ses tables, on peut préciser un fichier de database au moment du lancement `duckdb madb.db` ou à chaud pendant une session : `.open madb.db`.  
+
+## Hello world  
+
+https://duckdb.org/docs/stable/sql/introduction.html 
+
+
+## Optionnel : configuration 
+
+Pour configurer la CLI vous avez la possibilité de créer un fichier `.duckdbrc` à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d'exécuter du code au lancement de votre session duckdb.
 
 ```
 .prompt 'duckdb>'
 CREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN "env;config", PROFILE 'default',  ENDPOINT "minio.lab.sspcloud.fr" );
 ```
 
-## Première utilisation
-
-in memory avec un fichier local 
-
-Tips 
-.once 
-.timer on 
-
-
-Lire un fichier parquet 
-parquet c'est quoi ? 
-
-Blob syntax pour lire plusieurs fichiers 
-des requêtes : filtre sur des colonnes -> c'est rapide
-
-
-
-
-::: {.cell .markdown}
-
-<details>
-<summary>Afficher la solution</summary>
-
-Une solution
-
-</details>

@@ -1,0 +1,5 @@
+# Parquet, let's go !  
+
+Pour pratiquer du parquet on va utiliser DuckDB mais il est tout à fait possible d'exploiter les fichiers parquet directement en utilisant les bibliothèques adaptées à votre langage (cf )  
+
+

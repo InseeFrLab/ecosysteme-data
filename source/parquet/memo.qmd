@@ -1,0 +1,22 @@
+# Memo Parquet  
+
+## En utilisant pandas
+
+```
+import pandas as pd
+import s3fs
+
+s3 = s3fs.S3FileSystem()
+df = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')
+
+```
+
+## En utilisant pyarrow
+
+```
+import s3fs
+import pyarrow.parquet as pq
+
+s3 = s3fs.S3FileSystem()
+df = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)
+```

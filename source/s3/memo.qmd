@@ -92,28 +92,6 @@ s3_client = session.client(service_name='s3')
 
 ```
 
-## En utilisant pandas
-
-```
-import pandas as pd
-import s3fs
-
-s3 = s3fs.S3FileSystem()
-df = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')
-
-```
-
-## En utilisant pyarrow
-
-```
-import s3fs
-import pyarrow.parquet as pq
-
-s3 = s3fs.S3FileSystem()
-df = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)
-
-```
-
 ## En utilisant mc (cli)
 
 Pour configurer mc : une variable d'environnement suffit : MC_HOST_ALIAS = "https://<Access Key>:<Secret Key>:<Session Token>@<YOUR-S3-ENDPOINT>"

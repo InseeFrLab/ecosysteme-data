@@ -1,1 +1,42 @@
 # DuckDB, c'est quoi ? 🦆
+
+[DuckDB](https://duckdb.org/) se présente comme un SGBD (système de gestion de base de données) **in-process**, **analytical**, **rapide**, **open-source**, **portable**.  
+Voyons ce que ça veut dire dans le détail
+
+## In-process  
+
+C'est l'un des points principaux de DuckDB : **tout tourne au sein d'un même processus**.  
+C'est donc différent des SGBD classiques qui ont des architectures client / serveur.  
+Dans un SGBD classique comme postgres, on peut distinguer 3 grands morceaux d'architecture :  
+
+* Le client : il envoie les requêtes au serveur et récupère les résultats  
+* Le serveur : tourne en permanence, reçoit les requêtes, les analyse, détermine et exécute le plan d'exécution correspondant  
+* Le stockage physique des données : en général le système de fichiers local au serveur postgres  
+
+Dans le cas de DuckDB, le client et le serveur sont confondus dans le même processus et ce processus ne tourne que pour la durée de la session DuckDB.  
+Le stockage de données est découplé de DuckDB. DuckDB travaille par défaut `in-memory` et s'appuie sur des sources de données externes (par exemple sur S3, wink-wink) 
+
+En résumé :  
+
+* Architecture classique (type postgres) : client => serveur / stockage des données  
+* Architecture Duckdb : client / serveur => sources multiples de données
+
+## Analytical
+
+DuckDB est une base de données spécialisée dans les traitements analytiques, par opposition aux bases de données habituelles spécialisées dans le transactionnel.  
+Cette différence de paradigme se voit principalement à 2 niveaux :  
+
+* Au lieu de travailler sur des données pré-structurées (coucou les formes normales), on va travailler directement sur les **données brutes** (.csv, .parquet)
+* On va se concentrer sur les lectures (analyse de la données) et pas sur les modifications unitaires (transactionnelles). Ca rejoint le pattern `write once, read many` vu précédemment sur S3
+
+## Rapide  
+
+Bon, tous les SGBD disent ça, vous vérifierez par vous-même :) 
+
+## Portable
+
+DuckDB se décline dans à peu près toutes les formes et langages possibles et est multi-plateforme. Dans la suite on va s'intéresser à sa version en ligne de commande mais il est aussi utilisable directement dans vos codes R, python, Java (sous forme de driver JDBC) et même en version web via webassembly !  
+
+## Interopérable  
+
+DuckDB est capable de lire et de s'interfacer avec de multiples sources de données (`.csv`, `.parquet` ...), différents protocoles (`http` brut, `S3`, base de données ...) et est presque entièrement compatible avec le dialecte PostgreSQL (cf [Postgresql compatibility](https://duckdb.org/docs/stable/sql/dialect/postgresql_compatibility.html) )  

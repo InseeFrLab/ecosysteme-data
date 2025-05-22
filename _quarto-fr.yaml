@@ -17,13 +17,13 @@ website:
             href: source/duckdb/cestquoi.qmd
           - text: "Hello world"
             href: source/duckdb/letsgo.qmd
-          - text: "???"
+          - text: "Memo"
             href: source/duckdb/memo.qmd
       - section: "Parquet"
         contents: 
           - text: "C'est quoi ?"
-            href: source/s3/tutorial.qmd
+            href: source/parquet/cestquoi.qmd
           - text: "Hello world"
-            href: source/s3/tutorial.qmd
-          - text: "???"
-            href: source/s3/tutorial.qmd
+            href: source/parquet/letsgo.qmd
+          - text: "Memo"
+            href: source/parquet/memo.qmd
