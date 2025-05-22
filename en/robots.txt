@@ -1,1 +1,1 @@
-Sitemap: https://inseefrlab.github.io/formation-s3-initiation/sitemap.xml
+Sitemap: https://inseefrlab.github.io/ecosysteme-data/sitemap.xml
