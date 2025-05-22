@@ -1,0 +1,111 @@
+# S3, c'est quoi ?
+
+S3 est un **protocole de stockage objet** dérivé du service initialement offert par le cloud provider AWS.  
+
+## Les limites des offres de stockage historiques
+
+Pour comprendre l'intérêt du stockage objet il faut d'abord identifier les limites des solutions de stockage historiques.  
+Historiquement, les offres principales de stockage disponibles dans les infrastructures informatiques sont des offres dites **block storage** ou **file storage**. Même s'il existe des différences et tout un tas d'implémentations différentes de ces deux systèmes, le résultat pour un développeur ou un statisticien est souvent le même : **un partage réseau monté directement sur ses environnements d'exécution** (poste de travail, serveur distant ...).  
+Les limites de ces systèmes sont multiples :  
+
+* Ils constituent un **frein majeur à la portabilité** : un process ne pourra s'exécuter que sur un environnement où les données sont montées  
+* Ils constituent un **frein majeur à l'intéropérabilité** : ces systèmes sont souvent très adhérents à l'infrastructure de données 
+* Ils constituent un **frein majeur à la scalabilité** : ces systèmes ne sont pas pensés pour être montés et utilisés par des centaines de process simultanément  
+* Ils induisent **une charge sur les équipes d'infra** qui doivent préconfigurer tous les environnements pour y monter les "bons" partages  
+* **Le modèle de sécurité associé est imparfait** : pour ces systèmes, le contrôle d'accès se fait souvent au moment du montage de la ressource. Une fois la ressource accessible à l'environnement, les accès unitaires sont plus difficilement traçables, auditables et validables  
+
+## Le stockage objet
+
+Le stockage objet apporte des solutions aux problématiques précédentes en **inversant l'approche**.  
+**Au lieu de rendre disponible les données en les montant directement dans les environnements, c'est l'applicatif qui va directement requêter les données au moment de leur utilisation.**  
+
+* Les environnements d'exécution n'ont **plus de prérequis** ce qui offre une flexibilité, portabilité et intéropérabilité incroyable 
+* Le modèle de sécurité passe à un **contrôle d'accès par requête, beaucoup plus fin, traçable et auditable**
+* Le système est nativement scalable  
+
+## S3  
+
+S3 est un **protocole** implémentant les principes du **stockage objet**.  
+Il est important de faire la **distinction entre S3 (le protocole) et AWS S3 (le service S3 hébergé chez AWS)**.  
+Il est donc tout à fait possible d'installer un serveur compatible S3 chez soi. Citons 2 implémentations : [minIO](https://github.com/minio/minio) & [CEPH](https://docs.ceph.com/en/latest/radosgw/s3/).  
+
+## S3 : Une API HTTP
+
+S3 expose une API REST HTTP. **Toute intéraction avec un serveur S3 passe par des requêtes HTTP** que ça soit pour télécharger, uploader ou supprimer des données ou même pour le configurer.  
+Comme pour toute API, la première étape pour discuter avec est d'obtenir son URL.
+
+Par exemple: 
+
+- AWS S3 : http://s3.amazonaws.com/  - qui est très souvent configuré par défaut, autant pour les librairies que pour les clients. 
+- SSP CLOUD : https://minio.lab.sspcloud.fr
+- LS3 : minio.datascience.kube.insee.fr
+- pour un usage interne : minio.dev.kube.insee.fr
+...
+
+## Premier contact  
+
+Sans le savoir vous faites déjà des tonnes de requêtes vers des serveurs S3 tout les jours.  
+Par exemple, ce chat vous est offert par un serveur S3 : 
+<img src="https://minio.lab.sspcloud.fr/f2wbnp/public/chat.jpg" width="200">  
+Cette image est disponible directement à l'URL https://minio.lab.sspcloud.fr/f2wbnp/public/chat.jpg  
+
+**Pour les fichiers publics, le téléchargement se fait simplement via une requête GET classique.**  
+L'objet possède une URL composée de :  
+
+* URL de base du serveur S3 : https://minio.lab.sspcloud.fr  
+* Nom du bucket : `f2wbnp` (à noter que pour la plupart des serveurs S3, l'accès est aussi possible via un sous-domaine correspondant au bucket : https://f2wbnp.minio.lab.sspcloud.fr/public/chat.jpg , on parle alors de `virtual host style access` plutôt que `path style access`)  
+* Chemin de l'objet au sein du bucket : `public/chat.jpg`  
+
+Un bucket correspond en gros à un dossier à la racine du serveur S3. Les buckets permettent de séparer les usages, les permissions, les quotas ...  
+En fonction du serveur S3 que vous utilisez et des permissions que vous avez, vous pouvez avoir accès à tout ou partie d'un ou plusieurs buckets.
+
+### Authentification
+
+A part pour l'accès aux données explicitement rendues publiques (la gestion de la visibilité et des permissions sur les fichiers se fait en général via un système de policies qui n'est pas abordé dans cette présentation), il faudra des informations d'authentification (credentials) pour communiquer avec l'API.  
+Ces credentials sont constitués d'un duo `access key` & `secret key` (en gros login / mot de passe) pour les comptes de service et d'un trio `access key`, `secret key`, `session token` pour les identités temporaires (credentials personnels, expirant au bout d'un certain temps).  
+
+Pourront être utilisées les variables d'environnements suivantes, généralement reconnues par les bibliothèques standards S3 :
+
+AWS_ACCESS_KEY_ID=my_access_key
+AWS_SECRET_ACCESS_KEY=my_secret_key
+AWS_SESSION_TOKEN = my_session_token
+ENDPOINT_URL = s3_endpoint
+
+Pour récupérer vos credentials, vous pouvez vous rendre sur 
+- LS3 / SSPCLOUD : onglet my account > Connect to storage et sélectionner `shell environment variable`
+
+## Un client pour communiquer avec S3
+
+Afin de simplifier les intéractions avec l'API S3, nous allons utiliser un client s3. Cela permettra de gérer l'authentification et de construire les requêtes HTTP correspondant à vos commandes.
+
+Des exemples de clients s3 en ligne de commande :  
+
+- [mc](https://min.io/docs/minio/linux/reference/minio-mc.html) (minIO Client) : compatible pour tout service compatible s3
+- [s3cmd](https://s3tools.org/s3cmd) : compatible pour tout service compatible s3  
+- [aws cli](https://aws.amazon.com/cli/) : outil officiel pour intéragir avec Amazon S3
+- [rclone](https://rclone.org/) : couteau suisse multicloud, supporte d'autres protocoles que S3  
+
+Il existe évidemment des interfaces graphiques ainsi que des bibliothèques (SDK) pour tous les langages.  
+
+Vous êtes évidemment libres d'utiliser le client S3 de votre choix, en fonction de vos préférences.  
+Dans la suite on illustrera à partir du client `mc` mais vous êtes encouragés à tester différents clients.  
+
+Dans tous les cas, **client + URL + credentials = ça marche** :)  
+
+## Cas d'usages et limites  
+
+S3 (et plus généralement le stockage objet) est parfait pour un certain nombre d'usages mais pas tous.  
+Les principales limitations sont les suivantes :  
+
+* **L'écriture partielle n'est pas possible** : un fichier ne peut pas être modifié. La moindre modification (y compris renommage) correspond à la réécriture complète du fichier  
+* **La latence est plus forte que pour un stockage block / fichiers classique** : il n'est donc pas adapté pour des sytèmes ayant besoin d'une latence faible comme les bases de données relationnelles  
+
+Du coup on en tire quelques leçons :  
+
+* Write once, read many : S3 est particulièrement adapté à ce pattern. Parfait pour les backups, les logs, les ressources statiques, la diffusion des repertoires
+* S3 n'a pas vocation à remplacer entièrement les stockages block / fichiers existants mais à venir en complément pour les bons cas d'usage
+
+## Aller plus loin 
+
+https://docs.sspcloud.fr/content/storage.html
+

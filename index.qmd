@@ -1,14 +1,15 @@
 ::: {.content-visible when-profile="fr"}
-# Formation d'initiation à `S3`
+# Ecosystème data : S3, duckDB, parquet
 
 ## Contexte
 
-### But de la formation
+Ce site propose un aperçu d'une partie de l'écosystème moderne de traitement de données en abordant 3 technologies :  
 
+* S3 : le stockage objet
+* DuckDB : un SGBD analytique
+* Parquet : un format de données orienté colonnes
 
-### Programme de la formation
-
-## Et après la formation ?
+## Et après ?
 
 ### Accès aux supports
 

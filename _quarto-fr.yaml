@@ -1,9 +1,29 @@
 website:
-  title: "Formation S3"
+  title: "Ecosystème data : S3, duckDB, parquet"
   sidebar:
     style: 'docked'
     contents:
-      - section: "Fondamentaux"
+      - section: "S3"
         contents: 
-          - text: "Types de base et variables"
-            href: source/fundamentals/tutorial.qmd
+          - text: "C'est quoi ?"
+            href: source/s3/cestquoi.qmd
+          - text: "Let's go !"
+            href: source/s3/letsgo.qmd
+          - text: "Memo utile"
+            href: source/s3/memo.qmd
+      - section: "DuckDB"
+        contents: 
+          - text: "C'est quoi ?"
+            href: source/duckdb/cestquoi.qmd
+          - text: "Hello world"
+            href: source/duckdb/letsgo.qmd
+          - text: "???"
+            href: source/duckdb/memo.qmd
+      - section: "Parquet"
+        contents: 
+          - text: "C'est quoi ?"
+            href: source/s3/tutorial.qmd
+          - text: "Hello world"
+            href: source/s3/tutorial.qmd
+          - text: "???"
+            href: source/s3/tutorial.qmd

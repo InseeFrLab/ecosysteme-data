@@ -114,6 +114,35 @@ df = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)
 
 ```
 
+## En utilisant mc (cli)
+
+Pour configurer mc : une variable d'environnement suffit : MC_HOST_ALIAS = "https://<Access Key>:<Secret Key>:<Session Token>@<YOUR-S3-ENDPOINT>"
+exemple:
+```
+export MC_HOST_s3 = "https://$AWS_ACCESS_KEY_ID$:AWS_SECRET_ACCESS_KEY:AWS_SESSION_TOKEN@$ENDPOINT_URL$"
+```
+
+Une fois le tout configuré, nous pouvons lister le contenu de notre bucket
+```
+mc ls s3/my-bucket
+```
+copier un fichier
+```
+mc cp s3/my-bucket/my-file.txt s3/my-bucket/somewhere-else/my-file.txt
+```
+le télécharger
+```
+mc get s3/my-bucket/my-file.txt ./data/my-file.txt
+```
+le supprimer
+```
+mc rm s3/my-bucket/my-file.txt
+```
+le téléverser
+```
+mc cp ./data/my-file.txt s3/my-bucket/my-second-file.txt
+```
+
 
 
 
