@@ -203,7 +203,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#parquet-cest-quoi" id="toc-parquet-cest-quoi" class="nav-link active" data-scroll-target="#parquet-cest-quoi">Parquet, c’est quoi ?</a></li>
+  <li><a href="#parquet-cest-quoi" id="toc-parquet-cest-quoi" class="nav-link active" data-scroll-target="#parquet-cest-quoi">Parquet, c’est quoi ?</a>
+  <ul class="collapse">
+  <li><a href="#composition-dun-fichier-parquet" id="toc-composition-dun-fichier-parquet" class="nav-link" data-scroll-target="#composition-dun-fichier-parquet">Composition d’un fichier parquet</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -215,8 +218,16 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="parquet-cest-quoi" class="level1">
 <h1>Parquet, c’est quoi ?</h1>
+<p>Parquet est un format de fichier orienté colonne dévelopé en 2013 par Cloudera et Twitter en 2013, avant d’être offert à la fondation Apache en 2014 en tant que projet open-source.</p>
+<p>Pour bien définir ce qu’est un format de fichier orienté colonne, rappelons d’abord ce qu’est un format de fichier orienté ligne. Dans les formats de fichiers orientés ligne, les données sont enregistrées ligne par ligne ce qui rend le format de fichier optimisé pour les systèmes transactionnels quand il y a besoin de lire ou enregistrer l’intégrité d’un enregistrement.</p>
+<p>Pour les formats de fichiers orientés colonne, la donnée est enregistrée par colonne. cela rend le format de fichier très intéressant pour les analyses. Ainsi, pour filtrer l’information sur une colonne précise, il n’y a pas besoin de charger toute une ligne mais seulement la colonne qui nous intéresse selon la requête effectuée, ce qui nous permet d’améliorer les performances. De plus, le format de fichiers orienté colonne permet le <em>vectorized processing</em>: les opérations sont effectuées par lots de valeurs de colonne au lieu de ligne à ligne. Les moteurs d’exécution (DuckDB, Trino, Spark) peuvent ainsi exécuter le même calcul sur des dizaines de valeurs au cours d’un cycle plutôt qu’une ligne à la fois. Enfin, les formats de fichiers orientés colonne sont des formats compressés ce qui permet un gain d’espace.</p>
+<section id="composition-dun-fichier-parquet" class="level2">
+<h2 class="anchored" data-anchor-id="composition-dun-fichier-parquet">Composition d’un fichier parquet</h2>
+<p>Quelques éléments composant un fichier parquet : - row group : partition horizontale des données, chaque groupe contient toutes les colonnes d’un sous-ensemble de lignes. Il s’agit de la plus grande unité de travail. - column chunk : colonne au sein d’un row group ce qui permet de réaliser une compression et encodage par colonne. - page : plus petite unité de données au sein d’un column chunk.On y retrouve : - Data Pages : valeur actuelle - Footer : metadatas comme le schema, les row groups, des statistiques…</p>
+<p>[img/parquet.svg]</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
