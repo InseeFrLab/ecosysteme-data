@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://inseefrlab.github.io/formation-s3-initiation/source/fundamentals/tutorial.html</loc>
-    <lastmod>2025-05-21T21:33:31.458Z</lastmod>
+    <loc>https://inseefrlab.github.io/formation-s3-initiation/source/s3/memo.html</loc>
+    <lastmod>2025-05-22T06:01:36.470Z</lastmod>
   </url>
   <url>
-    <loc>https://inseefrlab.github.io/formation-s3-initiation/index.html</loc>
-    <lastmod>2025-05-21T21:33:31.451Z</lastmod>
+    <loc>https://inseefrlab.github.io/formation-s3-initiation/source/s3/cestquoi.html</loc>
+    <lastmod>2025-05-22T06:01:36.470Z</lastmod>
+  </url>
+  <url>
+    <loc>https://inseefrlab.github.io/formation-s3-initiation/source/duckdb/letsgo.html</loc>
+    <lastmod>2025-05-22T06:01:36.470Z</lastmod>
   </url>
   <url>
     <loc>https://inseefrlab.github.io/formation-s3-initiation/slides/index.html</loc>
-    <lastmod>2025-05-21T21:33:31.458Z</lastmod>
+    <lastmod>2025-05-22T06:01:36.469Z</lastmod>
+  </url>
+  <url>
+    <loc>https://inseefrlab.github.io/formation-s3-initiation/index.html</loc>
+    <lastmod>2025-05-22T06:01:36.462Z</lastmod>
+  </url>
+  <url>
+    <loc>https://inseefrlab.github.io/formation-s3-initiation/source/duckdb/cestquoi.html</loc>
+    <lastmod>2025-05-22T06:01:36.469Z</lastmod>
+  </url>
+  <url>
+    <loc>https://inseefrlab.github.io/formation-s3-initiation/source/duckdb/memo.html</loc>
+    <lastmod>2025-05-22T06:01:36.470Z</lastmod>
+  </url>
+  <url>
+    <loc>https://inseefrlab.github.io/formation-s3-initiation/source/s3/letsgo.html</loc>
+    <lastmod>2025-05-22T06:01:36.470Z</lastmod>
   </url>
 </urlset>

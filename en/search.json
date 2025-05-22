@@ -1,10 +1,212 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Introductory training to S3",
+    "objectID": "source/s3/memo.html",
+    "href": "source/s3/memo.html",
+    "title": "Se connecter à S3",
     "section": "",
-    "text": "Introductory training to S3"
+    "text": "Pour configurer sa connection à s3, des variables d’environnement et fichiers de configuration sont reconnus par la plupart des librairies. Ainsi, si seul un endpoint est utilisé, on pourra souvent se contenter d’utiliser des variables d’environnement (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_DEFAULT_REGION, ENDPOINT_URL). Au delà d’un endpoint, et afin de gagner en flexibilité, il est possible de créer des fichiers de configuration situés à la racine du répertoire utilisateur ($HOME). Les fichiers sont découpés en profiles permettant de configurer différents paramètres et credentials. Le fichier .aws/config permet de définir les endpoints d’intérêt, tandis que le fichier .aws/credentials sert à stocker les credentials associés. Par défaut, s’il existe, le profil default sera utilisé.\n.aws/config\n[default]\nregion = us-east-1\nendpoint_url = https://my-minio\n\n[profile test]\nregion = us-east-1\nendpoint_url = https://my-minio2\n\n.aws/credentials\n[default]\naws_access_key_id = default_access_key\naws_secret_access_key = default_secret_access_key\naws_session_token = default_token\n\n[test]\naws_access_key_id = test_access_key\naws_secret_access_key = test_secret_acess_key\n\n\nimport s3fs\n\nfs = s3fs.S3FileSystem(\n    client_kwargs={'endpoint_url': ENDPOINT_URL},\n    key = AWS_ACCESS_KEY_ID, \n    secret = AWS_SECRET_ACCESS_KEY, \n    token = AWS_SESSION_TOKEN\"),\n\nAvec des fichiers de config\nimport s3fs\n\nfs = s3fs.S3FileSystem()\nfiles = fs.ls('inesh')\nprint(files)\nSi on veut changer de profil\nimport s3fs\n\nfs = s3fs.S3FileSystem(profile=\"toto\")\nfiles = fs.ls('inesh')\nprint(files)\n\n\n\nimport boto3\n\nclient = boto3.client(\n    's3',\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    aws_session_token=SESSION_TOKEN,\n    endpoint_url=ENDPOINT_URL,\n)\nAvec des fichiers de config,\nimport boto3\nclient = boto3.client('s3)\n\nresponse = client.list_objects_v2(Bucket='inesh')\nprint(response)\n\nSi on veut changer de profil\nimport boto3\n\nsession = boto3.Session(profile_name='toto')\ns3_client = session.client(service_name='s3')\n\n\n\n\nimport pandas as pd\nimport s3fs\n\ns3 = s3fs.S3FileSystem()\ndf = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')\n\n\n\n\nimport s3fs\nimport pyarrow.parquet as pq\n\ns3 = s3fs.S3FileSystem()\ndf = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)\n\n\n\n\nPour configurer mc : une variable d’environnement suffit : MC_HOST_ALIAS = “https://::@” exemple:\nexport MC_HOST_s3 = \"https://$AWS_ACCESS_KEY_ID$:AWS_SECRET_ACCESS_KEY:AWS_SESSION_TOKEN@$ENDPOINT_URL$\"\nUne fois le tout configuré, nous pouvons lister le contenu de notre bucket\nmc ls s3/my-bucket\ncopier un fichier\nmc cp s3/my-bucket/my-file.txt s3/my-bucket/somewhere-else/my-file.txt\nle télécharger\nmc get s3/my-bucket/my-file.txt ./data/my-file.txt\nle supprimer\nmc rm s3/my-bucket/my-file.txt\nle téléverser\nmc cp ./data/my-file.txt s3/my-bucket/my-second-file.txt",
+    "crumbs": [
+      "S3",
+      "Memo utile"
+    ]
+  },
+  {
+    "objectID": "source/s3/memo.html#en-utilisant-s3fs",
+    "href": "source/s3/memo.html#en-utilisant-s3fs",
+    "title": "Se connecter à S3",
+    "section": "",
+    "text": "import s3fs\n\nfs = s3fs.S3FileSystem(\n    client_kwargs={'endpoint_url': ENDPOINT_URL},\n    key = AWS_ACCESS_KEY_ID, \n    secret = AWS_SECRET_ACCESS_KEY, \n    token = AWS_SESSION_TOKEN\"),\n\nAvec des fichiers de config\nimport s3fs\n\nfs = s3fs.S3FileSystem()\nfiles = fs.ls('inesh')\nprint(files)\nSi on veut changer de profil\nimport s3fs\n\nfs = s3fs.S3FileSystem(profile=\"toto\")\nfiles = fs.ls('inesh')\nprint(files)",
+    "crumbs": [
+      "S3",
+      "Memo utile"
+    ]
+  },
+  {
+    "objectID": "source/s3/memo.html#en-utilisant-boto3",
+    "href": "source/s3/memo.html#en-utilisant-boto3",
+    "title": "Se connecter à S3",
+    "section": "",
+    "text": "import boto3\n\nclient = boto3.client(\n    's3',\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    aws_session_token=SESSION_TOKEN,\n    endpoint_url=ENDPOINT_URL,\n)\nAvec des fichiers de config,\nimport boto3\nclient = boto3.client('s3)\n\nresponse = client.list_objects_v2(Bucket='inesh')\nprint(response)\n\nSi on veut changer de profil\nimport boto3\n\nsession = boto3.Session(profile_name='toto')\ns3_client = session.client(service_name='s3')",
+    "crumbs": [
+      "S3",
+      "Memo utile"
+    ]
+  },
+  {
+    "objectID": "source/s3/memo.html#en-utilisant-pandas",
+    "href": "source/s3/memo.html#en-utilisant-pandas",
+    "title": "Se connecter à S3",
+    "section": "",
+    "text": "import pandas as pd\nimport s3fs\n\ns3 = s3fs.S3FileSystem()\ndf = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')",
+    "crumbs": [
+      "S3",
+      "Memo utile"
+    ]
+  },
+  {
+    "objectID": "source/s3/memo.html#en-utilisant-pyarrow",
+    "href": "source/s3/memo.html#en-utilisant-pyarrow",
+    "title": "Se connecter à S3",
+    "section": "",
+    "text": "import s3fs\nimport pyarrow.parquet as pq\n\ns3 = s3fs.S3FileSystem()\ndf = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)",
+    "crumbs": [
+      "S3",
+      "Memo utile"
+    ]
+  },
+  {
+    "objectID": "source/s3/memo.html#en-utilisant-mc-cli",
+    "href": "source/s3/memo.html#en-utilisant-mc-cli",
+    "title": "Se connecter à S3",
+    "section": "",
+    "text": "Pour configurer mc : une variable d’environnement suffit : MC_HOST_ALIAS = “https://::@” exemple:\nexport MC_HOST_s3 = \"https://$AWS_ACCESS_KEY_ID$:AWS_SECRET_ACCESS_KEY:AWS_SESSION_TOKEN@$ENDPOINT_URL$\"\nUne fois le tout configuré, nous pouvons lister le contenu de notre bucket\nmc ls s3/my-bucket\ncopier un fichier\nmc cp s3/my-bucket/my-file.txt s3/my-bucket/somewhere-else/my-file.txt\nle télécharger\nmc get s3/my-bucket/my-file.txt ./data/my-file.txt\nle supprimer\nmc rm s3/my-bucket/my-file.txt\nle téléverser\nmc cp ./data/my-file.txt s3/my-bucket/my-second-file.txt",
+    "crumbs": [
+      "S3",
+      "Memo utile"
+    ]
+  },
+  {
+    "objectID": "source/s3/cestquoi.html",
+    "href": "source/s3/cestquoi.html",
+    "title": "S3, c’est quoi ?",
+    "section": "",
+    "text": "S3 est un protocole de stockage objet dérivé du service initialement offert par le cloud provider AWS.\n\n\nPour comprendre l’intérêt du stockage objet il faut d’abord identifier les limites des solutions de stockage historiques.\nHistoriquement, les offres principales de stockage disponibles dans les infrastructures informatiques sont des offres dites block storage ou file storage. Même s’il existe des différences et tout un tas d’implémentations différentes de ces deux systèmes, le résultat pour un développeur ou un statisticien est souvent le même : un partage réseau monté directement sur ses environnements d’exécution (poste de travail, serveur distant …).\nLes limites de ces systèmes sont multiples :\n\nIls constituent un frein majeur à la portabilité : un process ne pourra s’exécuter que sur un environnement où les données sont montées\n\nIls constituent un frein majeur à l’intéropérabilité : ces systèmes sont souvent très adhérents à l’infrastructure de données\nIls constituent un frein majeur à la scalabilité : ces systèmes ne sont pas pensés pour être montés et utilisés par des centaines de process simultanément\n\nIls induisent une charge sur les équipes d’infra qui doivent préconfigurer tous les environnements pour y monter les “bons” partages\n\nLe modèle de sécurité associé est imparfait : pour ces systèmes, le contrôle d’accès se fait souvent au moment du montage de la ressource. Une fois la ressource accessible à l’environnement, les accès unitaires sont plus difficilement traçables, auditables et validables\n\n\n\n\nLe stockage objet apporte des solutions aux problématiques précédentes en inversant l’approche.\nAu lieu de rendre disponible les données en les montant directement dans les environnements, c’est l’applicatif qui va directement requêter les données au moment de leur utilisation.\n\nLes environnements d’exécution n’ont plus de prérequis ce qui offre une flexibilité, portabilité et intéropérabilité incroyable\nLe modèle de sécurité passe à un contrôle d’accès par requête, beaucoup plus fin, traçable et auditable\nLe système est nativement scalable\n\n\n\n\nS3 est un protocole implémentant les principes du stockage objet.\nIl est important de faire la distinction entre S3 (le protocole) et AWS S3 (le service S3 hébergé chez AWS).\nIl est donc tout à fait possible d’installer un serveur compatible S3 chez soi. Citons 2 implémentations : minIO & CEPH.\n\n\n\nS3 expose une API REST HTTP. Toute intéraction avec un serveur S3 passe par des requêtes HTTP que ça soit pour télécharger, uploader ou supprimer des données ou même pour le configurer.\nComme pour toute API, la première étape pour discuter avec est d’obtenir son URL.\nPar exemple:\n\nAWS S3 : http://s3.amazonaws.com/ - qui est très souvent configuré par défaut, autant pour les librairies que pour les clients.\nSSP CLOUD : https://minio.lab.sspcloud.fr\nLS3 : minio.datascience.kube.insee.fr\npour un usage interne : minio.dev.kube.insee.fr …\n\n\n\n\nSans le savoir vous faites déjà des tonnes de requêtes vers des serveurs S3 tout les jours.\nPar exemple, ce chat vous est offert par un serveur S3 : \nCette image est disponible directement à l’URL https://minio.lab.sspcloud.fr/f2wbnp/public/chat.jpg\nPour les fichiers publics, le téléchargement se fait simplement via une requête GET classique.\nL’objet possède une URL composée de :\n\nURL de base du serveur S3 : https://minio.lab.sspcloud.fr\n\nNom du bucket : f2wbnp (à noter que pour la plupart des serveurs S3, l’accès est aussi possible via un sous-domaine correspondant au bucket : https://f2wbnp.minio.lab.sspcloud.fr/public/chat.jpg , on parle alors de virtual host style access plutôt que path style access)\n\nChemin de l’objet au sein du bucket : public/chat.jpg\n\nUn bucket correspond en gros à un dossier à la racine du serveur S3. Les buckets permettent de séparer les usages, les permissions, les quotas …\nEn fonction du serveur S3 que vous utilisez et des permissions que vous avez, vous pouvez avoir accès à tout ou partie d’un ou plusieurs buckets.\n\n\nA part pour l’accès aux données explicitement rendues publiques (la gestion de la visibilité et des permissions sur les fichiers se fait en général via un système de policies qui n’est pas abordé dans cette présentation), il faudra des informations d’authentification (credentials) pour communiquer avec l’API.\nCes credentials sont constitués d’un duo access key & secret key (en gros login / mot de passe) pour les comptes de service et d’un trio access key, secret key, session token pour les identités temporaires (credentials personnels, expirant au bout d’un certain temps).\nPourront être utilisées les variables d’environnements suivantes, généralement reconnues par les bibliothèques standards S3 :\nAWS_ACCESS_KEY_ID=my_access_key AWS_SECRET_ACCESS_KEY=my_secret_key AWS_SESSION_TOKEN = my_session_token ENDPOINT_URL = s3_endpoint\nPour récupérer vos credentials, vous pouvez vous rendre sur - LS3 / SSPCLOUD : onglet my account &gt; Connect to storage et sélectionner shell environment variable\n\n\n\n\nAfin de simplifier les intéractions avec l’API S3, nous allons utiliser un client s3. Cela permettra de gérer l’authentification et de construire les requêtes HTTP correspondant à vos commandes.\nDes exemples de clients s3 en ligne de commande :\n\nmc (minIO Client) : compatible pour tout service compatible s3\ns3cmd : compatible pour tout service compatible s3\n\naws cli : outil officiel pour intéragir avec Amazon S3\nrclone : couteau suisse multicloud, supporte d’autres protocoles que S3\n\nIl existe évidemment des interfaces graphiques ainsi que des bibliothèques (SDK) pour tous les langages.\nVous êtes évidemment libres d’utiliser le client S3 de votre choix, en fonction de vos préférences.\nDans la suite on illustrera à partir du client mc mais vous êtes encouragés à tester différents clients.\nDans tous les cas, client + URL + credentials = ça marche :)\n\n\n\nS3 (et plus généralement le stockage objet) est parfait pour un certain nombre d’usages mais pas tous.\nLes principales limitations sont les suivantes :\n\nL’écriture partielle n’est pas possible : un fichier ne peut pas être modifié. La moindre modification (y compris renommage) correspond à la réécriture complète du fichier\n\nLa latence est plus forte que pour un stockage block / fichiers classique : il n’est donc pas adapté pour des sytèmes ayant besoin d’une latence faible comme les bases de données relationnelles\n\nDu coup on en tire quelques leçons :\n\nWrite once, read many : S3 est particulièrement adapté à ce pattern. Parfait pour les backups, les logs, les ressources statiques, la diffusion des repertoires\nS3 n’a pas vocation à remplacer entièrement les stockages block / fichiers existants mais à venir en complément pour les bons cas d’usage\n\n\n\n\nhttps://docs.sspcloud.fr/content/storage.html",
+    "crumbs": [
+      "S3",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/s3/cestquoi.html#les-limites-des-offres-de-stockage-historiques",
+    "href": "source/s3/cestquoi.html#les-limites-des-offres-de-stockage-historiques",
+    "title": "S3, c’est quoi ?",
+    "section": "",
+    "text": "Pour comprendre l’intérêt du stockage objet il faut d’abord identifier les limites des solutions de stockage historiques.\nHistoriquement, les offres principales de stockage disponibles dans les infrastructures informatiques sont des offres dites block storage ou file storage. Même s’il existe des différences et tout un tas d’implémentations différentes de ces deux systèmes, le résultat pour un développeur ou un statisticien est souvent le même : un partage réseau monté directement sur ses environnements d’exécution (poste de travail, serveur distant …).\nLes limites de ces systèmes sont multiples :\n\nIls constituent un frein majeur à la portabilité : un process ne pourra s’exécuter que sur un environnement où les données sont montées\n\nIls constituent un frein majeur à l’intéropérabilité : ces systèmes sont souvent très adhérents à l’infrastructure de données\nIls constituent un frein majeur à la scalabilité : ces systèmes ne sont pas pensés pour être montés et utilisés par des centaines de process simultanément\n\nIls induisent une charge sur les équipes d’infra qui doivent préconfigurer tous les environnements pour y monter les “bons” partages\n\nLe modèle de sécurité associé est imparfait : pour ces systèmes, le contrôle d’accès se fait souvent au moment du montage de la ressource. Une fois la ressource accessible à l’environnement, les accès unitaires sont plus difficilement traçables, auditables et validables",
+    "crumbs": [
+      "S3",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/s3/cestquoi.html#le-stockage-objet",
+    "href": "source/s3/cestquoi.html#le-stockage-objet",
+    "title": "S3, c’est quoi ?",
+    "section": "",
+    "text": "Le stockage objet apporte des solutions aux problématiques précédentes en inversant l’approche.\nAu lieu de rendre disponible les données en les montant directement dans les environnements, c’est l’applicatif qui va directement requêter les données au moment de leur utilisation.\n\nLes environnements d’exécution n’ont plus de prérequis ce qui offre une flexibilité, portabilité et intéropérabilité incroyable\nLe modèle de sécurité passe à un contrôle d’accès par requête, beaucoup plus fin, traçable et auditable\nLe système est nativement scalable",
+    "crumbs": [
+      "S3",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/s3/cestquoi.html#s3",
+    "href": "source/s3/cestquoi.html#s3",
+    "title": "S3, c’est quoi ?",
+    "section": "",
+    "text": "S3 est un protocole implémentant les principes du stockage objet.\nIl est important de faire la distinction entre S3 (le protocole) et AWS S3 (le service S3 hébergé chez AWS).\nIl est donc tout à fait possible d’installer un serveur compatible S3 chez soi. Citons 2 implémentations : minIO & CEPH.",
+    "crumbs": [
+      "S3",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/s3/cestquoi.html#s3-une-api-http",
+    "href": "source/s3/cestquoi.html#s3-une-api-http",
+    "title": "S3, c’est quoi ?",
+    "section": "",
+    "text": "S3 expose une API REST HTTP. Toute intéraction avec un serveur S3 passe par des requêtes HTTP que ça soit pour télécharger, uploader ou supprimer des données ou même pour le configurer.\nComme pour toute API, la première étape pour discuter avec est d’obtenir son URL.\nPar exemple:\n\nAWS S3 : http://s3.amazonaws.com/ - qui est très souvent configuré par défaut, autant pour les librairies que pour les clients.\nSSP CLOUD : https://minio.lab.sspcloud.fr\nLS3 : minio.datascience.kube.insee.fr\npour un usage interne : minio.dev.kube.insee.fr …",
+    "crumbs": [
+      "S3",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/s3/cestquoi.html#premier-contact",
+    "href": "source/s3/cestquoi.html#premier-contact",
+    "title": "S3, c’est quoi ?",
+    "section": "",
+    "text": "Sans le savoir vous faites déjà des tonnes de requêtes vers des serveurs S3 tout les jours.\nPar exemple, ce chat vous est offert par un serveur S3 : \nCette image est disponible directement à l’URL https://minio.lab.sspcloud.fr/f2wbnp/public/chat.jpg\nPour les fichiers publics, le téléchargement se fait simplement via une requête GET classique.\nL’objet possède une URL composée de :\n\nURL de base du serveur S3 : https://minio.lab.sspcloud.fr\n\nNom du bucket : f2wbnp (à noter que pour la plupart des serveurs S3, l’accès est aussi possible via un sous-domaine correspondant au bucket : https://f2wbnp.minio.lab.sspcloud.fr/public/chat.jpg , on parle alors de virtual host style access plutôt que path style access)\n\nChemin de l’objet au sein du bucket : public/chat.jpg\n\nUn bucket correspond en gros à un dossier à la racine du serveur S3. Les buckets permettent de séparer les usages, les permissions, les quotas …\nEn fonction du serveur S3 que vous utilisez et des permissions que vous avez, vous pouvez avoir accès à tout ou partie d’un ou plusieurs buckets.\n\n\nA part pour l’accès aux données explicitement rendues publiques (la gestion de la visibilité et des permissions sur les fichiers se fait en général via un système de policies qui n’est pas abordé dans cette présentation), il faudra des informations d’authentification (credentials) pour communiquer avec l’API.\nCes credentials sont constitués d’un duo access key & secret key (en gros login / mot de passe) pour les comptes de service et d’un trio access key, secret key, session token pour les identités temporaires (credentials personnels, expirant au bout d’un certain temps).\nPourront être utilisées les variables d’environnements suivantes, généralement reconnues par les bibliothèques standards S3 :\nAWS_ACCESS_KEY_ID=my_access_key AWS_SECRET_ACCESS_KEY=my_secret_key AWS_SESSION_TOKEN = my_session_token ENDPOINT_URL = s3_endpoint\nPour récupérer vos credentials, vous pouvez vous rendre sur - LS3 / SSPCLOUD : onglet my account &gt; Connect to storage et sélectionner shell environment variable",
+    "crumbs": [
+      "S3",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/s3/cestquoi.html#un-client-pour-communiquer-avec-s3",
+    "href": "source/s3/cestquoi.html#un-client-pour-communiquer-avec-s3",
+    "title": "S3, c’est quoi ?",
+    "section": "",
+    "text": "Afin de simplifier les intéractions avec l’API S3, nous allons utiliser un client s3. Cela permettra de gérer l’authentification et de construire les requêtes HTTP correspondant à vos commandes.\nDes exemples de clients s3 en ligne de commande :\n\nmc (minIO Client) : compatible pour tout service compatible s3\ns3cmd : compatible pour tout service compatible s3\n\naws cli : outil officiel pour intéragir avec Amazon S3\nrclone : couteau suisse multicloud, supporte d’autres protocoles que S3\n\nIl existe évidemment des interfaces graphiques ainsi que des bibliothèques (SDK) pour tous les langages.\nVous êtes évidemment libres d’utiliser le client S3 de votre choix, en fonction de vos préférences.\nDans la suite on illustrera à partir du client mc mais vous êtes encouragés à tester différents clients.\nDans tous les cas, client + URL + credentials = ça marche :)",
+    "crumbs": [
+      "S3",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/s3/cestquoi.html#cas-dusages-et-limites",
+    "href": "source/s3/cestquoi.html#cas-dusages-et-limites",
+    "title": "S3, c’est quoi ?",
+    "section": "",
+    "text": "S3 (et plus généralement le stockage objet) est parfait pour un certain nombre d’usages mais pas tous.\nLes principales limitations sont les suivantes :\n\nL’écriture partielle n’est pas possible : un fichier ne peut pas être modifié. La moindre modification (y compris renommage) correspond à la réécriture complète du fichier\n\nLa latence est plus forte que pour un stockage block / fichiers classique : il n’est donc pas adapté pour des sytèmes ayant besoin d’une latence faible comme les bases de données relationnelles\n\nDu coup on en tire quelques leçons :\n\nWrite once, read many : S3 est particulièrement adapté à ce pattern. Parfait pour les backups, les logs, les ressources statiques, la diffusion des repertoires\nS3 n’a pas vocation à remplacer entièrement les stockages block / fichiers existants mais à venir en complément pour les bons cas d’usage",
+    "crumbs": [
+      "S3",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/s3/cestquoi.html#aller-plus-loin",
+    "href": "source/s3/cestquoi.html#aller-plus-loin",
+    "title": "S3, c’est quoi ?",
+    "section": "",
+    "text": "https://docs.sspcloud.fr/content/storage.html",
+    "crumbs": [
+      "S3",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/letsgo.html",
+    "href": "source/duckdb/letsgo.html",
+    "title": "DuckDB, let’s go ! 🦆",
+    "section": "",
+    "text": "Pour instaler duckdb, il n’y a rien de plus simple que se rendre sur leur site documentaire et sélectionner notre cas d’usage : en l’occurence en ligne de commande.\n\n\n\nPour configurer la cli vous avez la possibilité de créer un fichier .duckdbrc à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d’exécuter du code au lancement de votre session duckdb.\n.prompt 'duckdb&gt;'\nCREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN \"env;config\", PROFILE 'default',  ENDPOINT \"minio.lab.sspcloud.fr\" );\n\n\n\nin memory avec un fichier local\nTips .once .timer on\nLire un fichier parquet parquet c’est quoi ?\nBlob syntax pour lire plusieurs fichiers des requêtes : filtre sur des colonnes -&gt; c’est rapide\n\n\n\nAfficher la solution\n\nUne solution",
+    "crumbs": [
+      "DuckDB",
+      "Hello world"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/letsgo.html#installation",
+    "href": "source/duckdb/letsgo.html#installation",
+    "title": "DuckDB, let’s go ! 🦆",
+    "section": "",
+    "text": "Pour instaler duckdb, il n’y a rien de plus simple que se rendre sur leur site documentaire et sélectionner notre cas d’usage : en l’occurence en ligne de commande.",
+    "crumbs": [
+      "DuckDB",
+      "Hello world"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/letsgo.html#configuration",
+    "href": "source/duckdb/letsgo.html#configuration",
+    "title": "DuckDB, let’s go ! 🦆",
+    "section": "",
+    "text": "Pour configurer la cli vous avez la possibilité de créer un fichier .duckdbrc à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d’exécuter du code au lancement de votre session duckdb.\n.prompt 'duckdb&gt;'\nCREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN \"env;config\", PROFILE 'default',  ENDPOINT \"minio.lab.sspcloud.fr\" );",
+    "crumbs": [
+      "DuckDB",
+      "Hello world"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/letsgo.html#première-utilisation",
+    "href": "source/duckdb/letsgo.html#première-utilisation",
+    "title": "DuckDB, let’s go ! 🦆",
+    "section": "",
+    "text": "in memory avec un fichier local\nTips .once .timer on\nLire un fichier parquet parquet c’est quoi ?\nBlob syntax pour lire plusieurs fichiers des requêtes : filtre sur des colonnes -&gt; c’est rapide\n\n\n\nAfficher la solution\n\nUne solution",
+    "crumbs": [
+      "DuckDB",
+      "Hello world"
+    ]
   },
   {
     "objectID": "slides/index.html#s3",
@@ -12,5 +214,66 @@
     "title": "Découverte S3",
     "section": "S3",
     "text": "S3"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Ecosystème data : S3, duckDB, parquet",
+    "section": "",
+    "text": "Ce site propose un aperçu d’une partie de l’écosystème moderne de traitement de données en abordant 3 technologies :\n\nS3 : le stockage objet\nDuckDB : un SGBD analytique\nParquet : un format de données orienté colonnes\n\n\n\n\n\n\nLe code qui génère les supports est disponible sur GitHub.\n\n\n\nPour approfondir sa connaissance après cette formation d’introduction, rien de tel que la mise en pratique sur des sujets concrets !\n\n\n\n\n\npour toute demande : innovation@insee.fr"
+  },
+  {
+    "objectID": "index.html#contexte",
+    "href": "index.html#contexte",
+    "title": "Ecosystème data : S3, duckDB, parquet",
+    "section": "",
+    "text": "Ce site propose un aperçu d’une partie de l’écosystème moderne de traitement de données en abordant 3 technologies :\n\nS3 : le stockage objet\nDuckDB : un SGBD analytique\nParquet : un format de données orienté colonnes"
+  },
+  {
+    "objectID": "index.html#et-après",
+    "href": "index.html#et-après",
+    "title": "Ecosystème data : S3, duckDB, parquet",
+    "section": "",
+    "text": "Le code qui génère les supports est disponible sur GitHub.\n\n\n\nPour approfondir sa connaissance après cette formation d’introduction, rien de tel que la mise en pratique sur des sujets concrets !"
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "Ecosystème data : S3, duckDB, parquet",
+    "section": "",
+    "text": "pour toute demande : innovation@insee.fr"
+  },
+  {
+    "objectID": "source/duckdb/cestquoi.html",
+    "href": "source/duckdb/cestquoi.html",
+    "title": "DuckDB, c’est quoi ? 🦆",
+    "section": "",
+    "text": "DuckDB, c’est quoi ? 🦆",
+    "crumbs": [
+      "DuckDB",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/memo.html",
+    "href": "source/duckdb/memo.html",
+    "title": "Memo DuckDB 🦆",
+    "section": "",
+    "text": "Memo DuckDB 🦆",
+    "crumbs": [
+      "DuckDB",
+      "???"
+    ]
+  },
+  {
+    "objectID": "source/s3/letsgo.html",
+    "href": "source/s3/letsgo.html",
+    "title": "S3, let’s go !",
+    "section": "",
+    "text": "S3, let’s go !\nIl est temps de pratiquer :)",
+    "crumbs": [
+      "S3",
+      "Let's go !"
+    ]
   }
 ]

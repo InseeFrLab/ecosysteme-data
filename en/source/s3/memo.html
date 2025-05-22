@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ecosystème data : S3, duckDB, parquet</title>
+<title>memo – S3 training course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,23 +23,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-06484fad4722108f498d8c00c46b7438.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-06484fad4722108f498d8c00c46b7438.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -69,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -81,9 +81,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Ecosystème data : S3, duckDB, parquet
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/s3/cestquoi.html">S3</a></li><li class="breadcrumb-item"><a href="../../source/s3/memo.html">Memo utile</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -98,9 +96,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">
-      Ecosystème data : S3, duckDB, parquet
-      </a> 
+      <a href="../../">S3 training course</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -121,19 +117,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/cestquoi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">C'est quoi ?</span></a>
+  <a href="../../source/s3/cestquoi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">C’est quoi ?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/letsgo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Let's go !</span></a>
+  <a href="../../source/s3/letsgo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Let’s go !</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/memo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/s3/memo.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Memo utile</span></a>
   </div>
 </li>
@@ -150,19 +146,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/duckdb/cestquoi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">C'est quoi ?</span></a>
+  <a href="../../source/duckdb/cestquoi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">C’est quoi ?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/duckdb/letsgo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/duckdb/letsgo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello world</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/duckdb/memo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/duckdb/memo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">???</span></a>
   </div>
 </li>
@@ -179,20 +175,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
- <span class="menu-text">C'est quoi ?</span></a>
+  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">C’est quoi ?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello world</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">???</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/fundamentals/tutorial.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic types and variables</span></a>
   </div>
 </li>
       </ul>
@@ -207,52 +220,126 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ecosystème-data-s3-duckdb-parquet" id="toc-ecosystème-data-s3-duckdb-parquet" class="nav-link active" data-scroll-target="#ecosystème-data-s3-duckdb-parquet">Ecosystème data : S3, duckDB, parquet</a>
+  <li><a href="#se-connecter-à-s3" id="toc-se-connecter-à-s3" class="nav-link active" data-scroll-target="#se-connecter-à-s3">Se connecter à S3</a>
   <ul class="collapse">
-  <li><a href="#contexte" id="toc-contexte" class="nav-link" data-scroll-target="#contexte">Contexte</a></li>
-  <li><a href="#et-après" id="toc-et-après" class="nav-link" data-scroll-target="#et-après">Et après ?</a>
-  <ul class="collapse">
-  <li><a href="#accès-aux-supports" id="toc-accès-aux-supports" class="nav-link" data-scroll-target="#accès-aux-supports">Accès aux supports</a></li>
-  <li><a href="#utiliser-s3-dans-des-projets" id="toc-utiliser-s3-dans-des-projets" class="nav-link" data-scroll-target="#utiliser-s3-dans-des-projets">Utiliser <code>S3</code> dans des projets</a></li>
-  </ul></li>
-  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
+  <li><a href="#en-utilisant-s3fs" id="toc-en-utilisant-s3fs" class="nav-link" data-scroll-target="#en-utilisant-s3fs">En utilisant s3fs</a></li>
+  <li><a href="#en-utilisant-boto3" id="toc-en-utilisant-boto3" class="nav-link" data-scroll-target="#en-utilisant-boto3">En utilisant boto3</a></li>
+  <li><a href="#en-utilisant-pandas" id="toc-en-utilisant-pandas" class="nav-link" data-scroll-target="#en-utilisant-pandas">En utilisant pandas</a></li>
+  <li><a href="#en-utilisant-pyarrow" id="toc-en-utilisant-pyarrow" class="nav-link" data-scroll-target="#en-utilisant-pyarrow">En utilisant pyarrow</a></li>
+  <li><a href="#en-utilisant-mc-cli" id="toc-en-utilisant-mc-cli" class="nav-link" data-scroll-target="#en-utilisant-mc-cli">En utilisant mc (cli)</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/s3/cestquoi.html">S3</a></li><li class="breadcrumb-item"><a href="../../source/s3/memo.html">Memo utile</a></li></ol></nav></header>
 
 
 
 
-<section id="ecosystème-data-s3-duckdb-parquet" class="level1">
-<h1>Ecosystème data : S3, duckDB, parquet</h1>
-<section id="contexte" class="level2">
-<h2 class="anchored" data-anchor-id="contexte">Contexte</h2>
-<p>Ce site propose un aperçu d’une partie de l’écosystème moderne de traitement de données en abordant 3 technologies :</p>
-<ul>
-<li>S3 : le stockage objet</li>
-<li>DuckDB : un SGBD analytique</li>
-<li>Parquet : un format de données orienté colonnes</li>
-</ul>
+<section id="se-connecter-à-s3" class="level1">
+<h1>Se connecter à S3</h1>
+<p>Pour configurer sa connection à s3, des variables d’environnement et fichiers de configuration sont reconnus par la plupart des librairies. Ainsi, si seul un endpoint est utilisé, on pourra souvent se contenter d’utiliser des variables d’environnement (<code>AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_DEFAULT_REGION, ENDPOINT_URL</code>). Au delà d’un endpoint, et afin de gagner en flexibilité, il est possible de créer des fichiers de configuration situés à la racine du répertoire utilisateur ($HOME). Les fichiers sont découpés en <code>profiles</code> permettant de configurer différents paramètres et credentials. Le fichier <code>.aws/config</code> permet de définir les endpoints d’intérêt, tandis que le fichier <code>.aws/credentials</code> sert à stocker les credentials associés. Par défaut, s’il existe, le profil <code>default</code> sera utilisé.</p>
+<p><code>.aws/config</code></p>
+<pre><code>[default]
+region = us-east-1
+endpoint_url = https://my-minio
+
+[profile test]
+region = us-east-1
+endpoint_url = https://my-minio2
+</code></pre>
+<p><code>.aws/credentials</code></p>
+<pre><code>[default]
+aws_access_key_id = default_access_key
+aws_secret_access_key = default_secret_access_key
+aws_session_token = default_token
+
+[test]
+aws_access_key_id = test_access_key
+aws_secret_access_key = test_secret_acess_key</code></pre>
+<section id="en-utilisant-s3fs" class="level2">
+<h2 class="anchored" data-anchor-id="en-utilisant-s3fs">En utilisant s3fs</h2>
+<pre><code>import s3fs
+
+fs = s3fs.S3FileSystem(
+    client_kwargs={'endpoint_url': ENDPOINT_URL},
+    key = AWS_ACCESS_KEY_ID, 
+    secret = AWS_SECRET_ACCESS_KEY, 
+    token = AWS_SESSION_TOKEN"),
+</code></pre>
+<p>Avec des fichiers de config</p>
+<pre><code>import s3fs
+
+fs = s3fs.S3FileSystem()
+files = fs.ls('inesh')
+print(files)</code></pre>
+<p>Si on veut changer de profil</p>
+<pre><code>import s3fs
+
+fs = s3fs.S3FileSystem(profile="toto")
+files = fs.ls('inesh')
+print(files)</code></pre>
 </section>
-<section id="et-après" class="level2">
-<h2 class="anchored" data-anchor-id="et-après">Et après ?</h2>
-<section id="accès-aux-supports" class="level3">
-<h3 class="anchored" data-anchor-id="accès-aux-supports">Accès aux supports</h3>
-<p>Le code qui génère les supports est disponible sur <a href="https://github.com/InseeFrLab/formation-s3-initiation.git">GitHub</a>.</p>
+<section id="en-utilisant-boto3" class="level2">
+<h2 class="anchored" data-anchor-id="en-utilisant-boto3">En utilisant boto3</h2>
+<pre><code>import boto3
+
+client = boto3.client(
+    's3',
+    aws_access_key_id=ACCESS_KEY,
+    aws_secret_access_key=SECRET_KEY,
+    aws_session_token=SESSION_TOKEN,
+    endpoint_url=ENDPOINT_URL,
+)</code></pre>
+<p>Avec des fichiers de config,</p>
+<pre><code>import boto3
+client = boto3.client('s3)
+
+response = client.list_objects_v2(Bucket='inesh')
+print(response)
+</code></pre>
+<p>Si on veut changer de profil</p>
+<pre><code>import boto3
+
+session = boto3.Session(profile_name='toto')
+s3_client = session.client(service_name='s3')
+</code></pre>
 </section>
-<section id="utiliser-s3-dans-des-projets" class="level3">
-<h3 class="anchored" data-anchor-id="utiliser-s3-dans-des-projets">Utiliser <code>S3</code> dans des projets</h3>
-<p>Pour approfondir sa connaissance après cette formation d’introduction, rien de tel que la mise en pratique sur des sujets concrets !</p>
+<section id="en-utilisant-pandas" class="level2">
+<h2 class="anchored" data-anchor-id="en-utilisant-pandas">En utilisant pandas</h2>
+<pre><code>import pandas as pd
+import s3fs
+
+s3 = s3fs.S3FileSystem()
+df = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')
+</code></pre>
 </section>
+<section id="en-utilisant-pyarrow" class="level2">
+<h2 class="anchored" data-anchor-id="en-utilisant-pyarrow">En utilisant pyarrow</h2>
+<pre><code>import s3fs
+import pyarrow.parquet as pq
+
+s3 = s3fs.S3FileSystem()
+df = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)
+</code></pre>
 </section>
-<section id="contact" class="level2">
-<h2 class="anchored" data-anchor-id="contact">Contact</h2>
-<ul>
-<li>pour toute demande : <a href="[innovation@insee.fr]">innovation@insee.fr</a></li>
-</ul>
+<section id="en-utilisant-mc-cli" class="level2">
+<h2 class="anchored" data-anchor-id="en-utilisant-mc-cli">En utilisant mc (cli)</h2>
+<p>Pour configurer mc : une variable d’environnement suffit : MC_HOST_ALIAS = “https://<access key="">:<secret key="">:<session token="">@<your-s3-endpoint>” exemple:</your-s3-endpoint></session></secret></access></p>
+<pre><code>export MC_HOST_s3 = "https://$AWS_ACCESS_KEY_ID$:AWS_SECRET_ACCESS_KEY:AWS_SESSION_TOKEN@$ENDPOINT_URL$"</code></pre>
+<p>Une fois le tout configuré, nous pouvons lister le contenu de notre bucket</p>
+<pre><code>mc ls s3/my-bucket</code></pre>
+<p>copier un fichier</p>
+<pre><code>mc cp s3/my-bucket/my-file.txt s3/my-bucket/somewhere-else/my-file.txt</code></pre>
+<p>le télécharger</p>
+<pre><code>mc get s3/my-bucket/my-file.txt ./data/my-file.txt</code></pre>
+<p>le supprimer</p>
+<pre><code>mc rm s3/my-bucket/my-file.txt</code></pre>
+<p>le téléverser</p>
+<pre><code>mc cp ./data/my-file.txt s3/my-bucket/my-second-file.txt</code></pre>
+
+
 </section>
 </section>
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ecosystème data : S3, duckDB, parquet</title>
+<title>memo – Ecosystème data : S3, duckDB, parquet</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,23 +23,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-06484fad4722108f498d8c00c46b7438.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-06484fad4722108f498d8c00c46b7438.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -69,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -81,9 +81,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Ecosystème data : S3, duckDB, parquet
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/duckdb/cestquoi.html">DuckDB</a></li><li class="breadcrumb-item"><a href="../../source/duckdb/memo.html">???</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -98,9 +96,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">
-      Ecosystème data : S3, duckDB, parquet
-      </a> 
+      <a href="../../">Ecosystème data : S3, duckDB, parquet</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -121,19 +117,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/cestquoi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">C'est quoi ?</span></a>
+  <a href="../../source/s3/cestquoi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">C’est quoi ?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/letsgo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Let's go !</span></a>
+  <a href="../../source/s3/letsgo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Let’s go !</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/memo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/s3/memo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Memo utile</span></a>
   </div>
 </li>
@@ -150,19 +146,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/duckdb/cestquoi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">C'est quoi ?</span></a>
+  <a href="../../source/duckdb/cestquoi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">C’est quoi ?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/duckdb/letsgo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/duckdb/letsgo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello world</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/duckdb/memo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/duckdb/memo.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">???</span></a>
   </div>
 </li>
@@ -179,19 +175,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
- <span class="menu-text">C'est quoi ?</span></a>
+  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">C’est quoi ?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello world</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">???</span></a>
   </div>
 </li>
@@ -207,53 +203,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ecosystème-data-s3-duckdb-parquet" id="toc-ecosystème-data-s3-duckdb-parquet" class="nav-link active" data-scroll-target="#ecosystème-data-s3-duckdb-parquet">Ecosystème data : S3, duckDB, parquet</a>
-  <ul class="collapse">
-  <li><a href="#contexte" id="toc-contexte" class="nav-link" data-scroll-target="#contexte">Contexte</a></li>
-  <li><a href="#et-après" id="toc-et-après" class="nav-link" data-scroll-target="#et-après">Et après ?</a>
-  <ul class="collapse">
-  <li><a href="#accès-aux-supports" id="toc-accès-aux-supports" class="nav-link" data-scroll-target="#accès-aux-supports">Accès aux supports</a></li>
-  <li><a href="#utiliser-s3-dans-des-projets" id="toc-utiliser-s3-dans-des-projets" class="nav-link" data-scroll-target="#utiliser-s3-dans-des-projets">Utiliser <code>S3</code> dans des projets</a></li>
-  </ul></li>
-  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
-  </ul></li>
+  <li><a href="#memo-duckdb" id="toc-memo-duckdb" class="nav-link active" data-scroll-target="#memo-duckdb">Memo DuckDB 🦆</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/duckdb/cestquoi.html">DuckDB</a></li><li class="breadcrumb-item"><a href="../../source/duckdb/memo.html">???</a></li></ol></nav></header>
 
 
 
 
-<section id="ecosystème-data-s3-duckdb-parquet" class="level1">
-<h1>Ecosystème data : S3, duckDB, parquet</h1>
-<section id="contexte" class="level2">
-<h2 class="anchored" data-anchor-id="contexte">Contexte</h2>
-<p>Ce site propose un aperçu d’une partie de l’écosystème moderne de traitement de données en abordant 3 technologies :</p>
-<ul>
-<li>S3 : le stockage objet</li>
-<li>DuckDB : un SGBD analytique</li>
-<li>Parquet : un format de données orienté colonnes</li>
-</ul>
-</section>
-<section id="et-après" class="level2">
-<h2 class="anchored" data-anchor-id="et-après">Et après ?</h2>
-<section id="accès-aux-supports" class="level3">
-<h3 class="anchored" data-anchor-id="accès-aux-supports">Accès aux supports</h3>
-<p>Le code qui génère les supports est disponible sur <a href="https://github.com/InseeFrLab/formation-s3-initiation.git">GitHub</a>.</p>
-</section>
-<section id="utiliser-s3-dans-des-projets" class="level3">
-<h3 class="anchored" data-anchor-id="utiliser-s3-dans-des-projets">Utiliser <code>S3</code> dans des projets</h3>
-<p>Pour approfondir sa connaissance après cette formation d’introduction, rien de tel que la mise en pratique sur des sujets concrets !</p>
-</section>
-</section>
-<section id="contact" class="level2">
-<h2 class="anchored" data-anchor-id="contact">Contact</h2>
-<ul>
-<li>pour toute demande : <a href="[innovation@insee.fr]">innovation@insee.fr</a></li>
-</ul>
-</section>
+<section id="memo-duckdb" class="level1">
+<h1>Memo DuckDB 🦆</h1>
+
+
 </section>
 
 </main> <!-- /main -->
