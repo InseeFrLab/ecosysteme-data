@@ -6,7 +6,7 @@
 
 ## Site associé
 
-Le site web associé à la formation est déployé à [cette adresse](https://inseefrlab.github.io/formation-s3-initiation/) ([version anglaise](https://inseefrlab.github.io/formation-s3-initiation/en)).
+Le site web associé à la formation est déployé à [cette adresse](https://inseefrlab.github.io/ecosysteme-data/) ([version anglaise](https://inseefrlab.github.io/ecosysteme-data/en)).
 
 ## Déploiement à partir du SSP Cloud
 
@@ -19,8 +19,8 @@ Afin de favoriser la reproductibilité de la formation, les sources des supports
 - cloner le dépôt de la formation :
 
 ```bash
-git clone https://github.com/InseeFrLab/formation-s3-initiation.git
-cd formation-s3-initiation
+git clone https://github.com/InseeFrLab/ecosysteme-data.git
+cd ecosysteme-data
 ```
 
 - générer les notebooks :

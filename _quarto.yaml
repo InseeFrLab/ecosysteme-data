@@ -8,8 +8,8 @@ profile:
   default: fr
 
 website:
-  site-url: https://inseefrlab.github.io/formation-s3-initiation/
-  repo-url: https://github.com/InseeFrLab/formation-s3-initiation.git
+  site-url: https://inseefrlab.github.io/ecosysteme-data/
+  repo-url: https://github.com/InseeFrLab/ecosysteme-data.git
 #  favicon: img/logo.svg
 
 format:
