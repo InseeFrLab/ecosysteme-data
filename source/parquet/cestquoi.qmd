@@ -17,4 +17,4 @@ Quelques éléments composant un fichier parquet :
     - Data Pages : valeur actuelle 
     - Footer : metadatas comme le schema, les row groups, des statistiques... 
 
-![](../../img/parquet.svg){fig-align="center"}
+![](../../img/parquet.png){fig-align="center"}
