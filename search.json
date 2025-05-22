@@ -4,7 +4,7 @@
     "href": "source/s3/memo.html",
     "title": "Se connecter à S3",
     "section": "",
-    "text": "Pour configurer sa connection à s3, des variables d’environnement et fichiers de configuration sont reconnus par la plupart des librairies. Ainsi, si seul un endpoint est utilisé, on pourra souvent se contenter d’utiliser des variables d’environnement (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_DEFAULT_REGION, ENDPOINT_URL). Au delà d’un endpoint, et afin de gagner en flexibilité, il est possible de créer des fichiers de configuration situés à la racine du répertoire utilisateur ($HOME). Les fichiers sont découpés en profiles permettant de configurer différents paramètres et credentials. Le fichier .aws/config permet de définir les endpoints d’intérêt, tandis que le fichier .aws/credentials sert à stocker les credentials associés. Par défaut, s’il existe, le profil default sera utilisé.\n.aws/config\n[default]\nregion = us-east-1\nendpoint_url = https://my-minio\n\n[profile test]\nregion = us-east-1\nendpoint_url = https://my-minio2\n\n.aws/credentials\n[default]\naws_access_key_id = default_access_key\naws_secret_access_key = default_secret_access_key\naws_session_token = default_token\n\n[test]\naws_access_key_id = test_access_key\naws_secret_access_key = test_secret_acess_key\n\n\nimport s3fs\n\nfs = s3fs.S3FileSystem(\n    client_kwargs={'endpoint_url': ENDPOINT_URL},\n    key = AWS_ACCESS_KEY_ID, \n    secret = AWS_SECRET_ACCESS_KEY, \n    token = AWS_SESSION_TOKEN\"),\n\nAvec des fichiers de config\nimport s3fs\n\nfs = s3fs.S3FileSystem()\nfiles = fs.ls('inesh')\nprint(files)\nSi on veut changer de profil\nimport s3fs\n\nfs = s3fs.S3FileSystem(profile=\"toto\")\nfiles = fs.ls('inesh')\nprint(files)\n\n\n\nimport boto3\n\nclient = boto3.client(\n    's3',\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    aws_session_token=SESSION_TOKEN,\n    endpoint_url=ENDPOINT_URL,\n)\nAvec des fichiers de config,\nimport boto3\nclient = boto3.client('s3)\n\nresponse = client.list_objects_v2(Bucket='inesh')\nprint(response)\n\nSi on veut changer de profil\nimport boto3\n\nsession = boto3.Session(profile_name='toto')\ns3_client = session.client(service_name='s3')\n\n\n\n\nimport pandas as pd\nimport s3fs\n\ns3 = s3fs.S3FileSystem()\ndf = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')\n\n\n\n\nimport s3fs\nimport pyarrow.parquet as pq\n\ns3 = s3fs.S3FileSystem()\ndf = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)\n\n\n\n\nPour configurer mc : une variable d’environnement suffit : MC_HOST_ALIAS = “https://::@” exemple:\nexport MC_HOST_s3 = \"https://$AWS_ACCESS_KEY_ID$:AWS_SECRET_ACCESS_KEY:AWS_SESSION_TOKEN@$ENDPOINT_URL$\"\nUne fois le tout configuré, nous pouvons lister le contenu de notre bucket\nmc ls s3/my-bucket\ncopier un fichier\nmc cp s3/my-bucket/my-file.txt s3/my-bucket/somewhere-else/my-file.txt\nle télécharger\nmc get s3/my-bucket/my-file.txt ./data/my-file.txt\nle supprimer\nmc rm s3/my-bucket/my-file.txt\nle téléverser\nmc cp ./data/my-file.txt s3/my-bucket/my-second-file.txt",
+    "text": "Pour configurer sa connection à s3, des variables d’environnement et fichiers de configuration sont reconnus par la plupart des librairies. Ainsi, si seul un endpoint est utilisé, on pourra souvent se contenter d’utiliser des variables d’environnement (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_DEFAULT_REGION, ENDPOINT_URL). Au delà d’un endpoint, et afin de gagner en flexibilité, il est possible de créer des fichiers de configuration situés à la racine du répertoire utilisateur ($HOME). Les fichiers sont découpés en profiles permettant de configurer différents paramètres et credentials. Le fichier .aws/config permet de définir les endpoints d’intérêt, tandis que le fichier .aws/credentials sert à stocker les credentials associés. Par défaut, s’il existe, le profil default sera utilisé.\n.aws/config\n[default]\nregion = us-east-1\nendpoint_url = https://my-minio\n\n[profile test]\nregion = us-east-1\nendpoint_url = https://my-minio2\n\n.aws/credentials\n[default]\naws_access_key_id = default_access_key\naws_secret_access_key = default_secret_access_key\naws_session_token = default_token\n\n[test]\naws_access_key_id = test_access_key\naws_secret_access_key = test_secret_acess_key\n\n\nimport s3fs\n\nfs = s3fs.S3FileSystem(\n    client_kwargs={'endpoint_url': ENDPOINT_URL},\n    key = AWS_ACCESS_KEY_ID, \n    secret = AWS_SECRET_ACCESS_KEY, \n    token = AWS_SESSION_TOKEN\"),\n\nAvec des fichiers de config\nimport s3fs\n\nfs = s3fs.S3FileSystem()\nfiles = fs.ls('inesh')\nprint(files)\nSi on veut changer de profil\nimport s3fs\n\nfs = s3fs.S3FileSystem(profile=\"toto\")\nfiles = fs.ls('inesh')\nprint(files)\n\n\n\nimport boto3\n\nclient = boto3.client(\n    's3',\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    aws_session_token=SESSION_TOKEN,\n    endpoint_url=ENDPOINT_URL,\n)\nAvec des fichiers de config,\nimport boto3\nclient = boto3.client('s3)\n\nresponse = client.list_objects_v2(Bucket='inesh')\nprint(response)\n\nSi on veut changer de profil\nimport boto3\n\nsession = boto3.Session(profile_name='toto')\ns3_client = session.client(service_name='s3')\n\n\n\n\nPour configurer mc : une variable d’environnement suffit : MC_HOST_ALIAS = “https://::@” exemple:\nexport MC_HOST_s3 = \"https://$AWS_ACCESS_KEY_ID$:AWS_SECRET_ACCESS_KEY:AWS_SESSION_TOKEN@$ENDPOINT_URL$\"\nUne fois le tout configuré, nous pouvons lister le contenu de notre bucket\nmc ls s3/my-bucket\ncopier un fichier\nmc cp s3/my-bucket/my-file.txt s3/my-bucket/somewhere-else/my-file.txt\nle télécharger\nmc get s3/my-bucket/my-file.txt ./data/my-file.txt\nle supprimer\nmc rm s3/my-bucket/my-file.txt\nle téléverser\nmc cp ./data/my-file.txt s3/my-bucket/my-second-file.txt",
     "crumbs": [
       "S3",
       "Memo utile"
@@ -27,28 +27,6 @@
     "title": "Se connecter à S3",
     "section": "",
     "text": "import boto3\n\nclient = boto3.client(\n    's3',\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    aws_session_token=SESSION_TOKEN,\n    endpoint_url=ENDPOINT_URL,\n)\nAvec des fichiers de config,\nimport boto3\nclient = boto3.client('s3)\n\nresponse = client.list_objects_v2(Bucket='inesh')\nprint(response)\n\nSi on veut changer de profil\nimport boto3\n\nsession = boto3.Session(profile_name='toto')\ns3_client = session.client(service_name='s3')",
-    "crumbs": [
-      "S3",
-      "Memo utile"
-    ]
-  },
-  {
-    "objectID": "source/s3/memo.html#en-utilisant-pandas",
-    "href": "source/s3/memo.html#en-utilisant-pandas",
-    "title": "Se connecter à S3",
-    "section": "",
-    "text": "import pandas as pd\nimport s3fs\n\ns3 = s3fs.S3FileSystem()\ndf = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')",
-    "crumbs": [
-      "S3",
-      "Memo utile"
-    ]
-  },
-  {
-    "objectID": "source/s3/memo.html#en-utilisant-pyarrow",
-    "href": "source/s3/memo.html#en-utilisant-pyarrow",
-    "title": "Se connecter à S3",
-    "section": "",
-    "text": "import s3fs\nimport pyarrow.parquet as pq\n\ns3 = s3fs.S3FileSystem()\ndf = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)",
     "crumbs": [
       "S3",
       "Memo utile"
@@ -165,55 +143,92 @@
     ]
   },
   {
-    "objectID": "source/duckdb/letsgo.html",
-    "href": "source/duckdb/letsgo.html",
-    "title": "DuckDB, let’s go ! 🦆",
+    "objectID": "source/parquet/letsgo.html",
+    "href": "source/parquet/letsgo.html",
+    "title": "Parquet, let’s go !",
     "section": "",
-    "text": "Pour instaler duckdb, il n’y a rien de plus simple que se rendre sur leur site documentaire et sélectionner notre cas d’usage : en l’occurence en ligne de commande.\n\n\n\nPour configurer la cli vous avez la possibilité de créer un fichier .duckdbrc à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d’exécuter du code au lancement de votre session duckdb.\n.prompt 'duckdb&gt;'\nCREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN \"env;config\", PROFILE 'default',  ENDPOINT \"minio.lab.sspcloud.fr\" );\n\n\n\nin memory avec un fichier local\nTips .once .timer on\nLire un fichier parquet parquet c’est quoi ?\nBlob syntax pour lire plusieurs fichiers des requêtes : filtre sur des colonnes -&gt; c’est rapide\n\n\n\nAfficher la solution\n\nUne solution",
+    "text": "Parquet, let’s go !\nPour pratiquer du parquet on va utiliser DuckDB mais il est tout à fait possible d’exploiter les fichiers parquet directement en utilisant les bibliothèques adaptées à votre langage (cf )",
     "crumbs": [
-      "DuckDB",
+      "Parquet",
       "Hello world"
     ]
   },
   {
-    "objectID": "source/duckdb/letsgo.html#installation",
-    "href": "source/duckdb/letsgo.html#installation",
-    "title": "DuckDB, let’s go ! 🦆",
+    "objectID": "source/duckdb/memo.html",
+    "href": "source/duckdb/memo.html",
+    "title": "Memo DuckDB 🦆",
     "section": "",
-    "text": "Pour instaler duckdb, il n’y a rien de plus simple que se rendre sur leur site documentaire et sélectionner notre cas d’usage : en l’occurence en ligne de commande.",
+    "text": "Memo DuckDB 🦆",
     "crumbs": [
       "DuckDB",
-      "Hello world"
+      "Memo"
     ]
   },
   {
-    "objectID": "source/duckdb/letsgo.html#configuration",
-    "href": "source/duckdb/letsgo.html#configuration",
-    "title": "DuckDB, let’s go ! 🦆",
+    "objectID": "source/duckdb/cestquoi.html",
+    "href": "source/duckdb/cestquoi.html",
+    "title": "DuckDB, c’est quoi ? 🦆",
     "section": "",
-    "text": "Pour configurer la cli vous avez la possibilité de créer un fichier .duckdbrc à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d’exécuter du code au lancement de votre session duckdb.\n.prompt 'duckdb&gt;'\nCREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN \"env;config\", PROFILE 'default',  ENDPOINT \"minio.lab.sspcloud.fr\" );",
+    "text": "DuckDB se présente comme un SGBD (système de gestion de base de données) in-process, analytical, rapide, open-source, portable.\nVoyons ce que ça veut dire dans le détail\n\n\nC’est l’un des points principaux de DuckDB : tout tourne au sein d’un même processus.\nC’est donc différent des SGBD classiques qui ont des architectures client / serveur.\nDans un SGBD classique comme postgres, on peut distinguer 3 grands morceaux d’architecture :\n\nLe client : il envoie les requêtes au serveur et récupère les résultats\n\nLe serveur : tourne en permanence, reçoit les requêtes, les analyse, détermine et exécute le plan d’exécution correspondant\n\nLe stockage physique des données : en général le système de fichiers local au serveur postgres\n\nDans le cas de DuckDB, le client et le serveur sont confondus dans le même processus et ce processus ne tourne que pour la durée de la session DuckDB.\nLe stockage de données est découplé de DuckDB. DuckDB travaille par défaut in-memory et s’appuie sur des sources de données externes (par exemple sur S3, wink-wink)\nEn résumé :\n\nArchitecture classique (type postgres) : client =&gt; serveur / stockage des données\n\nArchitecture Duckdb : client / serveur =&gt; sources multiples de données\n\n\n\n\nDuckDB est une base de données spécialisée dans les traitements analytiques, par opposition aux bases de données habituelles spécialisées dans le transactionnel.\nCette différence de paradigme se voit principalement à 2 niveaux :\n\nAu lieu de travailler sur des données pré-structurées (coucou les formes normales), on va travailler directement sur les données brutes (.csv, .parquet)\nOn va se concentrer sur les lectures (analyse de la données) et pas sur les modifications unitaires (transactionnelles). Ca rejoint le pattern write once, read many vu précédemment sur S3\n\n\n\n\nBon, tous les SGBD disent ça, vous vérifierez par vous-même :)\n\n\n\nDuckDB se décline dans à peu près toutes les formes et langages possibles et est multi-plateforme. Dans la suite on va s’intéresser à sa version en ligne de commande mais il est aussi utilisable directement dans vos codes R, python, Java (sous forme de driver JDBC) et même en version web via webassembly !\n\n\n\nDuckDB est capable de lire et de s’interfacer avec de multiples sources de données (.csv, .parquet …), différents protocoles (http brut, S3, base de données …) et est presque entièrement compatible avec le dialecte PostgreSQL (cf Postgresql compatibility )",
     "crumbs": [
       "DuckDB",
-      "Hello world"
+      "C'est quoi ?"
     ]
   },
   {
-    "objectID": "source/duckdb/letsgo.html#première-utilisation",
-    "href": "source/duckdb/letsgo.html#première-utilisation",
-    "title": "DuckDB, let’s go ! 🦆",
+    "objectID": "source/duckdb/cestquoi.html#in-process",
+    "href": "source/duckdb/cestquoi.html#in-process",
+    "title": "DuckDB, c’est quoi ? 🦆",
     "section": "",
-    "text": "in memory avec un fichier local\nTips .once .timer on\nLire un fichier parquet parquet c’est quoi ?\nBlob syntax pour lire plusieurs fichiers des requêtes : filtre sur des colonnes -&gt; c’est rapide\n\n\n\nAfficher la solution\n\nUne solution",
+    "text": "C’est l’un des points principaux de DuckDB : tout tourne au sein d’un même processus.\nC’est donc différent des SGBD classiques qui ont des architectures client / serveur.\nDans un SGBD classique comme postgres, on peut distinguer 3 grands morceaux d’architecture :\n\nLe client : il envoie les requêtes au serveur et récupère les résultats\n\nLe serveur : tourne en permanence, reçoit les requêtes, les analyse, détermine et exécute le plan d’exécution correspondant\n\nLe stockage physique des données : en général le système de fichiers local au serveur postgres\n\nDans le cas de DuckDB, le client et le serveur sont confondus dans le même processus et ce processus ne tourne que pour la durée de la session DuckDB.\nLe stockage de données est découplé de DuckDB. DuckDB travaille par défaut in-memory et s’appuie sur des sources de données externes (par exemple sur S3, wink-wink)\nEn résumé :\n\nArchitecture classique (type postgres) : client =&gt; serveur / stockage des données\n\nArchitecture Duckdb : client / serveur =&gt; sources multiples de données",
     "crumbs": [
       "DuckDB",
-      "Hello world"
+      "C'est quoi ?"
     ]
   },
   {
-    "objectID": "slides/index.html#s3",
-    "href": "slides/index.html#s3",
-    "title": "Découverte S3",
-    "section": "S3",
-    "text": "S3"
+    "objectID": "source/duckdb/cestquoi.html#analytical",
+    "href": "source/duckdb/cestquoi.html#analytical",
+    "title": "DuckDB, c’est quoi ? 🦆",
+    "section": "",
+    "text": "DuckDB est une base de données spécialisée dans les traitements analytiques, par opposition aux bases de données habituelles spécialisées dans le transactionnel.\nCette différence de paradigme se voit principalement à 2 niveaux :\n\nAu lieu de travailler sur des données pré-structurées (coucou les formes normales), on va travailler directement sur les données brutes (.csv, .parquet)\nOn va se concentrer sur les lectures (analyse de la données) et pas sur les modifications unitaires (transactionnelles). Ca rejoint le pattern write once, read many vu précédemment sur S3",
+    "crumbs": [
+      "DuckDB",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/cestquoi.html#rapide",
+    "href": "source/duckdb/cestquoi.html#rapide",
+    "title": "DuckDB, c’est quoi ? 🦆",
+    "section": "",
+    "text": "Bon, tous les SGBD disent ça, vous vérifierez par vous-même :)",
+    "crumbs": [
+      "DuckDB",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/cestquoi.html#portable",
+    "href": "source/duckdb/cestquoi.html#portable",
+    "title": "DuckDB, c’est quoi ? 🦆",
+    "section": "",
+    "text": "DuckDB se décline dans à peu près toutes les formes et langages possibles et est multi-plateforme. Dans la suite on va s’intéresser à sa version en ligne de commande mais il est aussi utilisable directement dans vos codes R, python, Java (sous forme de driver JDBC) et même en version web via webassembly !",
+    "crumbs": [
+      "DuckDB",
+      "C'est quoi ?"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/cestquoi.html#interopérable",
+    "href": "source/duckdb/cestquoi.html#interopérable",
+    "title": "DuckDB, c’est quoi ? 🦆",
+    "section": "",
+    "text": "DuckDB est capable de lire et de s’interfacer avec de multiples sources de données (.csv, .parquet …), différents protocoles (http brut, S3, base de données …) et est presque entièrement compatible avec le dialecte PostgreSQL (cf Postgresql compatibility )",
+    "crumbs": [
+      "DuckDB",
+      "C'est quoi ?"
+    ]
   },
   {
     "objectID": "index.html",
@@ -244,25 +259,109 @@
     "text": "pour toute demande : innovation@insee.fr"
   },
   {
-    "objectID": "source/duckdb/cestquoi.html",
-    "href": "source/duckdb/cestquoi.html",
-    "title": "DuckDB, c’est quoi ? 🦆",
+    "objectID": "slides/index.html#s3",
+    "href": "slides/index.html#s3",
+    "title": "Découverte S3",
+    "section": "S3",
+    "text": "S3"
+  },
+  {
+    "objectID": "source/duckdb/letsgo.html",
+    "href": "source/duckdb/letsgo.html",
+    "title": "DuckDB, let’s go ! 🦆",
     "section": "",
-    "text": "DuckDB, c’est quoi ? 🦆",
+    "text": "Vous pouvez utiliser DuckDB de plein de manières différentes. Ici on va tout faire en ligne de commande (CLI) mais vous être encouragés à tester les SDK de vos langages préférés !\nDuckDB CLI est distribué sous forme de binaire standalone, téléchargeable directement sur leur site documentaire.\nIl est par ailleurs préinstallé dans la majorité des environnements modernes de datascience dont les environnements lancés par Onyxia\n\n\n\nLancer duckdb :\ngon@laboitemagique:~$ duckdb\nv1.2.2 7c039464e4\nEnter \".help\" for usage hints.\nConnected to a transient in-memory database.\nUse \".open FILENAME\" to reopen on a persistent database.\nOn constate bien que duckdb travaille uniquement en mémoire (transient in-memory database). Toutes les données seront donc perdues à la fin de la session.\nSi on veut qu’il sauvegarde ses tables, on peut préciser un fichier de database au moment du lancement duckdb madb.db ou à chaud pendant une session : .open madb.db.\n\n\n\nhttps://duckdb.org/docs/stable/sql/introduction.html\n\n\n\nPour configurer la CLI vous avez la possibilité de créer un fichier .duckdbrc à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d’exécuter du code au lancement de votre session duckdb.\n.prompt 'duckdb&gt;'\nCREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN \"env;config\", PROFILE 'default',  ENDPOINT \"minio.lab.sspcloud.fr\" );",
     "crumbs": [
       "DuckDB",
+      "Hello world"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/letsgo.html#installation",
+    "href": "source/duckdb/letsgo.html#installation",
+    "title": "DuckDB, let’s go ! 🦆",
+    "section": "",
+    "text": "Vous pouvez utiliser DuckDB de plein de manières différentes. Ici on va tout faire en ligne de commande (CLI) mais vous être encouragés à tester les SDK de vos langages préférés !\nDuckDB CLI est distribué sous forme de binaire standalone, téléchargeable directement sur leur site documentaire.\nIl est par ailleurs préinstallé dans la majorité des environnements modernes de datascience dont les environnements lancés par Onyxia",
+    "crumbs": [
+      "DuckDB",
+      "Hello world"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/letsgo.html#première-utilisation",
+    "href": "source/duckdb/letsgo.html#première-utilisation",
+    "title": "DuckDB, let’s go ! 🦆",
+    "section": "",
+    "text": "Lancer duckdb :\ngon@laboitemagique:~$ duckdb\nv1.2.2 7c039464e4\nEnter \".help\" for usage hints.\nConnected to a transient in-memory database.\nUse \".open FILENAME\" to reopen on a persistent database.\nOn constate bien que duckdb travaille uniquement en mémoire (transient in-memory database). Toutes les données seront donc perdues à la fin de la session.\nSi on veut qu’il sauvegarde ses tables, on peut préciser un fichier de database au moment du lancement duckdb madb.db ou à chaud pendant une session : .open madb.db.",
+    "crumbs": [
+      "DuckDB",
+      "Hello world"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/letsgo.html#hello-world",
+    "href": "source/duckdb/letsgo.html#hello-world",
+    "title": "DuckDB, let’s go ! 🦆",
+    "section": "",
+    "text": "https://duckdb.org/docs/stable/sql/introduction.html",
+    "crumbs": [
+      "DuckDB",
+      "Hello world"
+    ]
+  },
+  {
+    "objectID": "source/duckdb/letsgo.html#optionnel-configuration",
+    "href": "source/duckdb/letsgo.html#optionnel-configuration",
+    "title": "DuckDB, let’s go ! 🦆",
+    "section": "",
+    "text": "Pour configurer la CLI vous avez la possibilité de créer un fichier .duckdbrc à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d’exécuter du code au lancement de votre session duckdb.\n.prompt 'duckdb&gt;'\nCREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN \"env;config\", PROFILE 'default',  ENDPOINT \"minio.lab.sspcloud.fr\" );",
+    "crumbs": [
+      "DuckDB",
+      "Hello world"
+    ]
+  },
+  {
+    "objectID": "source/parquet/cestquoi.html",
+    "href": "source/parquet/cestquoi.html",
+    "title": "Parquet, c’est quoi ?",
+    "section": "",
+    "text": "Parquet, c’est quoi ?",
+    "crumbs": [
+      "Parquet",
       "C'est quoi ?"
     ]
   },
   {
-    "objectID": "source/duckdb/memo.html",
-    "href": "source/duckdb/memo.html",
-    "title": "Memo DuckDB 🦆",
+    "objectID": "source/parquet/memo.html",
+    "href": "source/parquet/memo.html",
+    "title": "Memo Parquet",
     "section": "",
-    "text": "Memo DuckDB 🦆",
+    "text": "import pandas as pd\nimport s3fs\n\ns3 = s3fs.S3FileSystem()\ndf = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')\n\n\n\n\nimport s3fs\nimport pyarrow.parquet as pq\n\ns3 = s3fs.S3FileSystem()\ndf = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)",
     "crumbs": [
-      "DuckDB",
-      "???"
+      "Parquet",
+      "Memo"
+    ]
+  },
+  {
+    "objectID": "source/parquet/memo.html#en-utilisant-pandas",
+    "href": "source/parquet/memo.html#en-utilisant-pandas",
+    "title": "Memo Parquet",
+    "section": "",
+    "text": "import pandas as pd\nimport s3fs\n\ns3 = s3fs.S3FileSystem()\ndf = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')",
+    "crumbs": [
+      "Parquet",
+      "Memo"
+    ]
+  },
+  {
+    "objectID": "source/parquet/memo.html#en-utilisant-pyarrow",
+    "href": "source/parquet/memo.html#en-utilisant-pyarrow",
+    "title": "Memo Parquet",
+    "section": "",
+    "text": "import s3fs\nimport pyarrow.parquet as pq\n\ns3 = s3fs.S3FileSystem()\ndf = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)",
+    "crumbs": [
+      "Parquet",
+      "Memo"
     ]
   },
   {

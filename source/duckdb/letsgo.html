@@ -159,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/duckdb/memo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">???</span></a>
+ <span class="menu-text">Memo</span></a>
   </div>
 </li>
       </ul>
@@ -175,20 +175,20 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../source/parquet/cestquoi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">C’est quoi ?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../source/parquet/letsgo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello world</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
- <span class="menu-text">???</span></a>
+  <a href="../../source/parquet/memo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Memo</span></a>
   </div>
 </li>
       </ul>
@@ -206,8 +206,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#duckdb-lets-go" id="toc-duckdb-lets-go" class="nav-link active" data-scroll-target="#duckdb-lets-go">DuckDB, let’s go ! 🦆</a>
   <ul class="collapse">
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration">Configuration</a></li>
   <li><a href="#première-utilisation" id="toc-première-utilisation" class="nav-link" data-scroll-target="#première-utilisation">Première utilisation</a></li>
+  <li><a href="#hello-world" id="toc-hello-world" class="nav-link" data-scroll-target="#hello-world">Hello world</a></li>
+  <li><a href="#optionnel-configuration" id="toc-optionnel-configuration" class="nav-link" data-scroll-target="#optionnel-configuration">Optionnel : configuration</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -222,30 +223,32 @@ ul.task-list li input[type="checkbox"] {
 <h1>DuckDB, let’s go ! 🦆</h1>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<p>Pour instaler duckdb, il n’y a rien de plus simple que se rendre sur <a href="https://duckdb.org/docs/installation/?version=stable&amp;environment=cli&amp;platform=linux&amp;download_method=direct&amp;architecture=x86_64">leur site documentaire</a> et sélectionner notre cas d’usage : en l’occurence en ligne de commande.</p>
-</section>
-<section id="configuration" class="level2">
-<h2 class="anchored" data-anchor-id="configuration">Configuration</h2>
-<p>Pour configurer la cli vous avez la possibilité de créer un fichier <code>.duckdbrc</code> à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d’exécuter du code au lancement de votre session duckdb.</p>
-<pre><code>.prompt 'duckdb&gt;'
-CREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN "env;config", PROFILE 'default',  ENDPOINT "minio.lab.sspcloud.fr" );</code></pre>
+<p>Vous pouvez utiliser DuckDB de plein de manières différentes. Ici on va tout faire en ligne de commande (CLI) mais vous être encouragés à tester les SDK de vos langages préférés !</p>
+<p>DuckDB CLI est distribué sous forme de binaire standalone, téléchargeable directement sur <a href="https://duckdb.org/docs/installation/?version=stable&amp;environment=cli&amp;platform=linux&amp;download_method=direct&amp;architecture=x86_64">leur site documentaire</a>.<br>
+Il est par ailleurs préinstallé dans la majorité des environnements modernes de datascience dont les environnements lancés par <a href="https://onyxia.sh">Onyxia</a></p>
 </section>
 <section id="première-utilisation" class="level2">
 <h2 class="anchored" data-anchor-id="première-utilisation">Première utilisation</h2>
-<p>in memory avec un fichier local</p>
-<p>Tips .once .timer on</p>
-<p>Lire un fichier parquet parquet c’est quoi ?</p>
-<p>Blob syntax pour lire plusieurs fichiers des requêtes : filtre sur des colonnes -&gt; c’est rapide</p>
-<div class="cell markdown">
-<details>
-<summary>
-Afficher la solution
-</summary>
-<p>Une solution</p>
-</details>
+<p>Lancer <code>duckdb</code> :</p>
+<pre class="shell"><code>gon@laboitemagique:~$ duckdb
+v1.2.2 7c039464e4
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.</code></pre>
+<p>On constate bien que <code>duckdb</code> travaille uniquement en mémoire (<code>transient in-memory database</code>). Toutes les données seront donc perdues à la fin de la session.<br>
+Si on veut qu’il sauvegarde ses tables, on peut préciser un fichier de database au moment du lancement <code>duckdb madb.db</code> ou à chaud pendant une session : <code>.open madb.db</code>.</p>
+</section>
+<section id="hello-world" class="level2">
+<h2 class="anchored" data-anchor-id="hello-world">Hello world</h2>
+<p>https://duckdb.org/docs/stable/sql/introduction.html</p>
+</section>
+<section id="optionnel-configuration" class="level2">
+<h2 class="anchored" data-anchor-id="optionnel-configuration">Optionnel : configuration</h2>
+<p>Pour configurer la CLI vous avez la possibilité de créer un fichier <code>.duckdbrc</code> à la racine de votre répertoire personnel ($HOME). Ce fichier vous permettra d’exécuter du code au lancement de votre session duckdb.</p>
+<pre><code>.prompt 'duckdb&gt;'
+CREATE OR REPLACE SECRET secret ( TYPE s3, PROVIDER credential_chain, CHAIN "env;config", PROFILE 'default',  ENDPOINT "minio.lab.sspcloud.fr" );</code></pre>
 
 
-</div>
 </section>
 </section>
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>cestquoi – Ecosystème data : S3, duckDB, parquet</title>
+<title>memo – S3 training course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/s3/cestquoi.html">S3</a></li><li class="breadcrumb-item"><a href="../../source/s3/cestquoi.html">C’est quoi ?</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/parquet/cestquoi.html">Parquet</a></li><li class="breadcrumb-item"><a href="../../source/parquet/memo.html">Memo</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -96,7 +96,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../../">Ecosystème data : S3, duckDB, parquet</a> 
+      <a href="../../">S3 training course</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -117,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/s3/cestquoi.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/s3/cestquoi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">C’est quoi ?</span></a>
   </div>
 </li>
@@ -187,8 +187,25 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/parquet/memo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/parquet/memo.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Memo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/fundamentals/tutorial.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic types and variables</span></a>
   </div>
 </li>
       </ul>
@@ -203,135 +220,38 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#s3-cest-quoi" id="toc-s3-cest-quoi" class="nav-link active" data-scroll-target="#s3-cest-quoi">S3, c’est quoi ?</a>
+  <li><a href="#memo-parquet" id="toc-memo-parquet" class="nav-link active" data-scroll-target="#memo-parquet">Memo Parquet</a>
   <ul class="collapse">
-  <li><a href="#les-limites-des-offres-de-stockage-historiques" id="toc-les-limites-des-offres-de-stockage-historiques" class="nav-link" data-scroll-target="#les-limites-des-offres-de-stockage-historiques">Les limites des offres de stockage historiques</a></li>
-  <li><a href="#le-stockage-objet" id="toc-le-stockage-objet" class="nav-link" data-scroll-target="#le-stockage-objet">Le stockage objet</a></li>
-  <li><a href="#s3" id="toc-s3" class="nav-link" data-scroll-target="#s3">S3</a></li>
-  <li><a href="#s3-une-api-http" id="toc-s3-une-api-http" class="nav-link" data-scroll-target="#s3-une-api-http">S3 : Une API HTTP</a></li>
-  <li><a href="#premier-contact" id="toc-premier-contact" class="nav-link" data-scroll-target="#premier-contact">Premier contact</a>
-  <ul class="collapse">
-  <li><a href="#authentification" id="toc-authentification" class="nav-link" data-scroll-target="#authentification">Authentification</a></li>
-  </ul></li>
-  <li><a href="#un-client-pour-communiquer-avec-s3" id="toc-un-client-pour-communiquer-avec-s3" class="nav-link" data-scroll-target="#un-client-pour-communiquer-avec-s3">Un client pour communiquer avec S3</a></li>
-  <li><a href="#cas-dusages-et-limites" id="toc-cas-dusages-et-limites" class="nav-link" data-scroll-target="#cas-dusages-et-limites">Cas d’usages et limites</a></li>
-  <li><a href="#aller-plus-loin" id="toc-aller-plus-loin" class="nav-link" data-scroll-target="#aller-plus-loin">Aller plus loin</a></li>
+  <li><a href="#en-utilisant-pandas" id="toc-en-utilisant-pandas" class="nav-link" data-scroll-target="#en-utilisant-pandas">En utilisant pandas</a></li>
+  <li><a href="#en-utilisant-pyarrow" id="toc-en-utilisant-pyarrow" class="nav-link" data-scroll-target="#en-utilisant-pyarrow">En utilisant pyarrow</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/s3/cestquoi.html">S3</a></li><li class="breadcrumb-item"><a href="../../source/s3/cestquoi.html">C’est quoi ?</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/parquet/cestquoi.html">Parquet</a></li><li class="breadcrumb-item"><a href="../../source/parquet/memo.html">Memo</a></li></ol></nav></header>
 
 
 
 
-<section id="s3-cest-quoi" class="level1">
-<h1>S3, c’est quoi ?</h1>
-<p>S3 est un <strong>protocole de stockage objet</strong> dérivé du service initialement offert par le cloud provider AWS.</p>
-<section id="les-limites-des-offres-de-stockage-historiques" class="level2">
-<h2 class="anchored" data-anchor-id="les-limites-des-offres-de-stockage-historiques">Les limites des offres de stockage historiques</h2>
-<p>Pour comprendre l’intérêt du stockage objet il faut d’abord identifier les limites des solutions de stockage historiques.<br>
-Historiquement, les offres principales de stockage disponibles dans les infrastructures informatiques sont des offres dites <strong>block storage</strong> ou <strong>file storage</strong>. Même s’il existe des différences et tout un tas d’implémentations différentes de ces deux systèmes, le résultat pour un développeur ou un statisticien est souvent le même : <strong>un partage réseau monté directement sur ses environnements d’exécution</strong> (poste de travail, serveur distant …).<br>
-Les limites de ces systèmes sont multiples :</p>
-<ul>
-<li>Ils constituent un <strong>frein majeur à la portabilité</strong> : un process ne pourra s’exécuter que sur un environnement où les données sont montées<br>
-</li>
-<li>Ils constituent un <strong>frein majeur à l’intéropérabilité</strong> : ces systèmes sont souvent très adhérents à l’infrastructure de données</li>
-<li>Ils constituent un <strong>frein majeur à la scalabilité</strong> : ces systèmes ne sont pas pensés pour être montés et utilisés par des centaines de process simultanément<br>
-</li>
-<li>Ils induisent <strong>une charge sur les équipes d’infra</strong> qui doivent préconfigurer tous les environnements pour y monter les “bons” partages<br>
-</li>
-<li><strong>Le modèle de sécurité associé est imparfait</strong> : pour ces systèmes, le contrôle d’accès se fait souvent au moment du montage de la ressource. Une fois la ressource accessible à l’environnement, les accès unitaires sont plus difficilement traçables, auditables et validables</li>
-</ul>
+<section id="memo-parquet" class="level1">
+<h1>Memo Parquet</h1>
+<section id="en-utilisant-pandas" class="level2">
+<h2 class="anchored" data-anchor-id="en-utilisant-pandas">En utilisant pandas</h2>
+<pre><code>import pandas as pd
+import s3fs
+
+s3 = s3fs.S3FileSystem()
+df = pd.read_parquet('my-bucket/my-file.parquet', filesystem=s3, engine='pyarrow')
+</code></pre>
 </section>
-<section id="le-stockage-objet" class="level2">
-<h2 class="anchored" data-anchor-id="le-stockage-objet">Le stockage objet</h2>
-<p>Le stockage objet apporte des solutions aux problématiques précédentes en <strong>inversant l’approche</strong>.<br>
-<strong>Au lieu de rendre disponible les données en les montant directement dans les environnements, c’est l’applicatif qui va directement requêter les données au moment de leur utilisation.</strong></p>
-<ul>
-<li>Les environnements d’exécution n’ont <strong>plus de prérequis</strong> ce qui offre une flexibilité, portabilité et intéropérabilité incroyable</li>
-<li>Le modèle de sécurité passe à un <strong>contrôle d’accès par requête, beaucoup plus fin, traçable et auditable</strong></li>
-<li>Le système est nativement scalable</li>
-</ul>
-</section>
-<section id="s3" class="level2">
-<h2 class="anchored" data-anchor-id="s3">S3</h2>
-<p>S3 est un <strong>protocole</strong> implémentant les principes du <strong>stockage objet</strong>.<br>
-Il est important de faire la <strong>distinction entre S3 (le protocole) et AWS S3 (le service S3 hébergé chez AWS)</strong>.<br>
-Il est donc tout à fait possible d’installer un serveur compatible S3 chez soi. Citons 2 implémentations : <a href="https://github.com/minio/minio">minIO</a> &amp; <a href="https://docs.ceph.com/en/latest/radosgw/s3/">CEPH</a>.</p>
-</section>
-<section id="s3-une-api-http" class="level2">
-<h2 class="anchored" data-anchor-id="s3-une-api-http">S3 : Une API HTTP</h2>
-<p>S3 expose une API REST HTTP. <strong>Toute intéraction avec un serveur S3 passe par des requêtes HTTP</strong> que ça soit pour télécharger, uploader ou supprimer des données ou même pour le configurer.<br>
-Comme pour toute API, la première étape pour discuter avec est d’obtenir son URL.</p>
-<p>Par exemple:</p>
-<ul>
-<li>AWS S3 : http://s3.amazonaws.com/ - qui est très souvent configuré par défaut, autant pour les librairies que pour les clients.</li>
-<li>SSP CLOUD : https://minio.lab.sspcloud.fr</li>
-<li>LS3 : minio.datascience.kube.insee.fr</li>
-<li>pour un usage interne : minio.dev.kube.insee.fr …</li>
-</ul>
-</section>
-<section id="premier-contact" class="level2">
-<h2 class="anchored" data-anchor-id="premier-contact">Premier contact</h2>
-<p>Sans le savoir vous faites déjà des tonnes de requêtes vers des serveurs S3 tout les jours.<br>
-Par exemple, ce chat vous est offert par un serveur S3 : <img src="https://minio.lab.sspcloud.fr/f2wbnp/public/chat.jpg" width="200"><br>
-Cette image est disponible directement à l’URL https://minio.lab.sspcloud.fr/f2wbnp/public/chat.jpg</p>
-<p><strong>Pour les fichiers publics, le téléchargement se fait simplement via une requête GET classique.</strong><br>
-L’objet possède une URL composée de :</p>
-<ul>
-<li>URL de base du serveur S3 : https://minio.lab.sspcloud.fr<br>
-</li>
-<li>Nom du bucket : <code>f2wbnp</code> (à noter que pour la plupart des serveurs S3, l’accès est aussi possible via un sous-domaine correspondant au bucket : https://f2wbnp.minio.lab.sspcloud.fr/public/chat.jpg , on parle alors de <code>virtual host style access</code> plutôt que <code>path style access</code>)<br>
-</li>
-<li>Chemin de l’objet au sein du bucket : <code>public/chat.jpg</code></li>
-</ul>
-<p>Un bucket correspond en gros à un dossier à la racine du serveur S3. Les buckets permettent de séparer les usages, les permissions, les quotas …<br>
-En fonction du serveur S3 que vous utilisez et des permissions que vous avez, vous pouvez avoir accès à tout ou partie d’un ou plusieurs buckets.</p>
-<section id="authentification" class="level3">
-<h3 class="anchored" data-anchor-id="authentification">Authentification</h3>
-<p>A part pour l’accès aux données explicitement rendues publiques (la gestion de la visibilité et des permissions sur les fichiers se fait en général via un système de policies qui n’est pas abordé dans cette présentation), il faudra des informations d’authentification (credentials) pour communiquer avec l’API.<br>
-Ces credentials sont constitués d’un duo <code>access key</code> &amp; <code>secret key</code> (en gros login / mot de passe) pour les comptes de service et d’un trio <code>access key</code>, <code>secret key</code>, <code>session token</code> pour les identités temporaires (credentials personnels, expirant au bout d’un certain temps).</p>
-<p>Pourront être utilisées les variables d’environnements suivantes, généralement reconnues par les bibliothèques standards S3 :</p>
-<p>AWS_ACCESS_KEY_ID=my_access_key AWS_SECRET_ACCESS_KEY=my_secret_key AWS_SESSION_TOKEN = my_session_token ENDPOINT_URL = s3_endpoint</p>
-<p>Pour récupérer vos credentials, vous pouvez vous rendre sur - LS3 / SSPCLOUD : onglet my account &gt; Connect to storage et sélectionner <code>shell environment variable</code></p>
-</section>
-</section>
-<section id="un-client-pour-communiquer-avec-s3" class="level2">
-<h2 class="anchored" data-anchor-id="un-client-pour-communiquer-avec-s3">Un client pour communiquer avec S3</h2>
-<p>Afin de simplifier les intéractions avec l’API S3, nous allons utiliser un client s3. Cela permettra de gérer l’authentification et de construire les requêtes HTTP correspondant à vos commandes.</p>
-<p>Des exemples de clients s3 en ligne de commande :</p>
-<ul>
-<li><a href="https://min.io/docs/minio/linux/reference/minio-mc.html">mc</a> (minIO Client) : compatible pour tout service compatible s3</li>
-<li><a href="https://s3tools.org/s3cmd">s3cmd</a> : compatible pour tout service compatible s3<br>
-</li>
-<li><a href="https://aws.amazon.com/cli/">aws cli</a> : outil officiel pour intéragir avec Amazon S3</li>
-<li><a href="https://rclone.org/">rclone</a> : couteau suisse multicloud, supporte d’autres protocoles que S3</li>
-</ul>
-<p>Il existe évidemment des interfaces graphiques ainsi que des bibliothèques (SDK) pour tous les langages.</p>
-<p>Vous êtes évidemment libres d’utiliser le client S3 de votre choix, en fonction de vos préférences.<br>
-Dans la suite on illustrera à partir du client <code>mc</code> mais vous êtes encouragés à tester différents clients.</p>
-<p>Dans tous les cas, <strong>client + URL + credentials = ça marche</strong> :)</p>
-</section>
-<section id="cas-dusages-et-limites" class="level2">
-<h2 class="anchored" data-anchor-id="cas-dusages-et-limites">Cas d’usages et limites</h2>
-<p>S3 (et plus généralement le stockage objet) est parfait pour un certain nombre d’usages mais pas tous.<br>
-Les principales limitations sont les suivantes :</p>
-<ul>
-<li><strong>L’écriture partielle n’est pas possible</strong> : un fichier ne peut pas être modifié. La moindre modification (y compris renommage) correspond à la réécriture complète du fichier<br>
-</li>
-<li><strong>La latence est plus forte que pour un stockage block / fichiers classique</strong> : il n’est donc pas adapté pour des sytèmes ayant besoin d’une latence faible comme les bases de données relationnelles</li>
-</ul>
-<p>Du coup on en tire quelques leçons :</p>
-<ul>
-<li>Write once, read many : S3 est particulièrement adapté à ce pattern. Parfait pour les backups, les logs, les ressources statiques, la diffusion des repertoires</li>
-<li>S3 n’a pas vocation à remplacer entièrement les stockages block / fichiers existants mais à venir en complément pour les bons cas d’usage</li>
-</ul>
-</section>
-<section id="aller-plus-loin" class="level2">
-<h2 class="anchored" data-anchor-id="aller-plus-loin">Aller plus loin</h2>
-<p>https://docs.sspcloud.fr/content/storage.html</p>
+<section id="en-utilisant-pyarrow" class="level2">
+<h2 class="anchored" data-anchor-id="en-utilisant-pyarrow">En utilisant pyarrow</h2>
+<pre><code>import s3fs
+import pyarrow.parquet as pq
+
+s3 = s3fs.S3FileSystem()
+df = pq.read_table('my-bucket/my-file.parquet', filesystem=s3)</code></pre>
 
 
 </section>

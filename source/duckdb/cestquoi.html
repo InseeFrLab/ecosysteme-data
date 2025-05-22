@@ -159,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/duckdb/memo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">???</span></a>
+ <span class="menu-text">Memo</span></a>
   </div>
 </li>
       </ul>
@@ -175,20 +175,20 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../source/parquet/cestquoi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">C’est quoi ?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../source/parquet/letsgo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello world</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/s3/tutorial.qmd" class="sidebar-item-text sidebar-link">
- <span class="menu-text">???</span></a>
+  <a href="../../source/parquet/memo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Memo</span></a>
   </div>
 </li>
       </ul>
@@ -203,7 +203,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#duckdb-cest-quoi" id="toc-duckdb-cest-quoi" class="nav-link active" data-scroll-target="#duckdb-cest-quoi">DuckDB, c’est quoi ? 🦆</a></li>
+  <li><a href="#duckdb-cest-quoi" id="toc-duckdb-cest-quoi" class="nav-link active" data-scroll-target="#duckdb-cest-quoi">DuckDB, c’est quoi ? 🦆</a>
+  <ul class="collapse">
+  <li><a href="#in-process" id="toc-in-process" class="nav-link" data-scroll-target="#in-process">In-process</a></li>
+  <li><a href="#analytical" id="toc-analytical" class="nav-link" data-scroll-target="#analytical">Analytical</a></li>
+  <li><a href="#rapide" id="toc-rapide" class="nav-link" data-scroll-target="#rapide">Rapide</a></li>
+  <li><a href="#portable" id="toc-portable" class="nav-link" data-scroll-target="#portable">Portable</a></li>
+  <li><a href="#interopérable" id="toc-interopérable" class="nav-link" data-scroll-target="#interopérable">Interopérable</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -215,8 +222,52 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="duckdb-cest-quoi" class="level1">
 <h1>DuckDB, c’est quoi ? 🦆</h1>
+<p><a href="https://duckdb.org/">DuckDB</a> se présente comme un SGBD (système de gestion de base de données) <strong>in-process</strong>, <strong>analytical</strong>, <strong>rapide</strong>, <strong>open-source</strong>, <strong>portable</strong>.<br>
+Voyons ce que ça veut dire dans le détail</p>
+<section id="in-process" class="level2">
+<h2 class="anchored" data-anchor-id="in-process">In-process</h2>
+<p>C’est l’un des points principaux de DuckDB : <strong>tout tourne au sein d’un même processus</strong>.<br>
+C’est donc différent des SGBD classiques qui ont des architectures client / serveur.<br>
+Dans un SGBD classique comme postgres, on peut distinguer 3 grands morceaux d’architecture :</p>
+<ul>
+<li>Le client : il envoie les requêtes au serveur et récupère les résultats<br>
+</li>
+<li>Le serveur : tourne en permanence, reçoit les requêtes, les analyse, détermine et exécute le plan d’exécution correspondant<br>
+</li>
+<li>Le stockage physique des données : en général le système de fichiers local au serveur postgres</li>
+</ul>
+<p>Dans le cas de DuckDB, le client et le serveur sont confondus dans le même processus et ce processus ne tourne que pour la durée de la session DuckDB.<br>
+Le stockage de données est découplé de DuckDB. DuckDB travaille par défaut <code>in-memory</code> et s’appuie sur des sources de données externes (par exemple sur S3, wink-wink)</p>
+<p>En résumé :</p>
+<ul>
+<li>Architecture classique (type postgres) : client =&gt; serveur / stockage des données<br>
+</li>
+<li>Architecture Duckdb : client / serveur =&gt; sources multiples de données</li>
+</ul>
+</section>
+<section id="analytical" class="level2">
+<h2 class="anchored" data-anchor-id="analytical">Analytical</h2>
+<p>DuckDB est une base de données spécialisée dans les traitements analytiques, par opposition aux bases de données habituelles spécialisées dans le transactionnel.<br>
+Cette différence de paradigme se voit principalement à 2 niveaux :</p>
+<ul>
+<li>Au lieu de travailler sur des données pré-structurées (coucou les formes normales), on va travailler directement sur les <strong>données brutes</strong> (.csv, .parquet)</li>
+<li>On va se concentrer sur les lectures (analyse de la données) et pas sur les modifications unitaires (transactionnelles). Ca rejoint le pattern <code>write once, read many</code> vu précédemment sur S3</li>
+</ul>
+</section>
+<section id="rapide" class="level2">
+<h2 class="anchored" data-anchor-id="rapide">Rapide</h2>
+<p>Bon, tous les SGBD disent ça, vous vérifierez par vous-même :)</p>
+</section>
+<section id="portable" class="level2">
+<h2 class="anchored" data-anchor-id="portable">Portable</h2>
+<p>DuckDB se décline dans à peu près toutes les formes et langages possibles et est multi-plateforme. Dans la suite on va s’intéresser à sa version en ligne de commande mais il est aussi utilisable directement dans vos codes R, python, Java (sous forme de driver JDBC) et même en version web via webassembly !</p>
+</section>
+<section id="interopérable" class="level2">
+<h2 class="anchored" data-anchor-id="interopérable">Interopérable</h2>
+<p>DuckDB est capable de lire et de s’interfacer avec de multiples sources de données (<code>.csv</code>, <code>.parquet</code> …), différents protocoles (<code>http</code> brut, <code>S3</code>, base de données …) et est presque entièrement compatible avec le dialecte PostgreSQL (cf <a href="https://duckdb.org/docs/stable/sql/dialect/postgresql_compatibility.html">Postgresql compatibility</a> )</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
