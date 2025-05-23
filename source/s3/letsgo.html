@@ -222,11 +222,11 @@ ul.task-list li input[type="checkbox"] {
 <p>Il est temps de pratiquer :)</p>
 <section id="mise-en-place" class="level2">
 <h2 class="anchored" data-anchor-id="mise-en-place">Mise en place</h2>
-<p>Vous êtes libres de choisir le serveur S3 auquel vous avez vous connecter.<br>
+<p>Vous êtes libres de choisir le serveur S3 auquel vous allez vous connecter.<br>
 Vous pouvez même déployer votre propre serveur S3 par exemple en installant <a href="https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-single-node-single-drive.html#minio-snsd">minIO</a></p>
 <p>Dans la suite, par simplicité de configuration, on utilisera un service déployé par Onyxia (par exemple sur le <a href="https://datalab.sspcloud.fr">SSPCloud</a>).<br>
-La configuration S3 est alors automatiquement injéctée via les variables d’environnement. Le confirmer via <code>env</code> : <code>AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_DEFAULT_REGION, AWS_S3_ENDPOINT</code>.<br>
-Sur ces environnements, vous avec les droits sur le bucket du nom de votre identifiant (ou, sur certaines plateformes, à un sous-path d’un bucket) Confirmer qu’on peut bien accéder avec <code>mc ls s3/votreidentifiant</code></p>
+La configuration S3 est alors automatiquement injectée via les variables d’environnement. Le confirmer via <code>env</code> : <code>AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_DEFAULT_REGION, AWS_S3_ENDPOINT</code>.<br>
+Sur ces environnements, vous avez les droits sur le bucket du nom de votre identifiant (ou, sur certaines plateformes, à un sous-path d’un bucket) Confirmer qu’on peut bien accéder avec <code>mc ls s3/votreidentifiant</code></p>
 <p>Vous avez aussi, via Onyxia, accès à une interface graphique cliente S3 (onglet <code>mes fichiers</code>)</p>
 </section>
 <section id="utilisation" class="level2">

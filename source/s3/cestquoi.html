@@ -269,8 +269,8 @@ Comme pour toute API, la première étape pour discuter avec est d’obtenir son
 <ul>
 <li>AWS S3 : http://s3.amazonaws.com/ - qui est très souvent configuré par défaut, autant pour les librairies que pour les clients.</li>
 <li>SSP CLOUD : https://minio.lab.sspcloud.fr</li>
-<li>LS3 : minio.datascience.kube.insee.fr</li>
-<li>pour un usage interne : minio.dev.kube.insee.fr …</li>
+<li>LS3 : https://minio.datascience.kube.insee.fr</li>
+<li>pour un usage interne : https://minio.dev.kube.insee.fr …</li>
 </ul>
 </section>
 <section id="premier-contact" class="level2">
@@ -321,7 +321,7 @@ Les principales limitations sont les suivantes :</p>
 <ul>
 <li><strong>L’écriture partielle n’est pas possible</strong> : un fichier ne peut pas être modifié. La moindre modification (y compris renommage) correspond à la réécriture complète du fichier<br>
 </li>
-<li><strong>La latence est plus forte que pour un stockage block / fichiers classique</strong> : il n’est donc pas adapté pour des sytèmes ayant besoin d’une latence faible comme les bases de données relationnelles</li>
+<li><strong>La latence est plus forte que pour un stockage block / fichiers classique</strong> : il n’est donc pas adapté pour des systèmes ayant besoin d’une latence faible comme les bases de données relationnelles</li>
 </ul>
 <p>Du coup on en tire quelques leçons :</p>
 <ul>
