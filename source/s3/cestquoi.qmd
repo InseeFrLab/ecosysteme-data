@@ -38,8 +38,8 @@ Par exemple:
 
 - AWS S3 : http://s3.amazonaws.com/  - qui est très souvent configuré par défaut, autant pour les librairies que pour les clients. 
 - SSP CLOUD : https://minio.lab.sspcloud.fr
-- LS3 : minio.datascience.kube.insee.fr
-- pour un usage interne : minio.dev.kube.insee.fr
+- LS3 : https://minio.datascience.kube.insee.fr
+- pour un usage interne : https://minio.dev.kube.insee.fr
 ...
 
 ## Premier contact  
@@ -98,7 +98,7 @@ S3 (et plus généralement le stockage objet) est parfait pour un certain nombre
 Les principales limitations sont les suivantes :  
 
 * **L'écriture partielle n'est pas possible** : un fichier ne peut pas être modifié. La moindre modification (y compris renommage) correspond à la réécriture complète du fichier  
-* **La latence est plus forte que pour un stockage block / fichiers classique** : il n'est donc pas adapté pour des sytèmes ayant besoin d'une latence faible comme les bases de données relationnelles  
+* **La latence est plus forte que pour un stockage block / fichiers classique** : il n'est donc pas adapté pour des systèmes ayant besoin d'une latence faible comme les bases de données relationnelles  
 
 Du coup on en tire quelques leçons :  
 

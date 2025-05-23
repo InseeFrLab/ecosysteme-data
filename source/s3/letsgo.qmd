@@ -4,12 +4,12 @@ Il est temps de pratiquer :)
 
 ## Mise en place  
 
-Vous êtes libres de choisir le serveur S3 auquel vous avez vous connecter.  
+Vous êtes libres de choisir le serveur S3 auquel vous allez vous connecter.  
 Vous pouvez même déployer votre propre serveur S3 par exemple en installant [minIO](https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-single-node-single-drive.html#minio-snsd)  
 
 Dans la suite, par simplicité de configuration, on utilisera un service déployé par Onyxia (par exemple sur le [SSPCloud](https://datalab.sspcloud.fr)).  
-La configuration S3 est alors automatiquement injéctée via les variables d'environnement. Le confirmer via `env` : `AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_DEFAULT_REGION, AWS_S3_ENDPOINT`.  
-Sur ces environnements, vous avec les droits sur le bucket du nom de votre identifiant (ou, sur certaines plateformes, à un sous-path d'un bucket)
+La configuration S3 est alors automatiquement injectée via les variables d'environnement. Le confirmer via `env` : `AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_DEFAULT_REGION, AWS_S3_ENDPOINT`.  
+Sur ces environnements, vous avez les droits sur le bucket du nom de votre identifiant (ou, sur certaines plateformes, à un sous-path d'un bucket)
 Confirmer qu'on peut bien accéder avec `mc ls s3/votreidentifiant`  
 
 Vous avez aussi, via Onyxia, accès à une interface graphique cliente S3 (onglet `mes fichiers`)

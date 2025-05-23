@@ -13,7 +13,7 @@ Lancer `duckdb` :
 
 ```shell
 gon@laboitemagique:~$ duckdb
-v1.2.2 7c039464e4
+v1.3.0 (Ossivalis) 71c5c07cdd
 Enter ".help" for usage hints.
 Connected to a transient in-memory database.
 Use ".open FILENAME" to reopen on a persistent database.
