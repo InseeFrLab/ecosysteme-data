@@ -147,7 +147,7 @@
     "href": "source/parquet/letsgo.html",
     "title": "Parquet, let’s go !",
     "section": "",
-    "text": "Parquet, let’s go !\nPour pratiquer du parquet on va utiliser DuckDB mais il est tout à fait possible d’exploiter les fichiers parquet directement en utilisant les bibliothèques adaptées à votre langage (cf )",
+    "text": "Parquet, let’s go !\nPour pratiquer du parquet on va utiliser DuckDB mais il est tout à fait possible d’exploiter les fichiers parquet directement en utilisant les bibliothèques adaptées à votre langage (cf le mémo).\nDonnées du RP sur data.gouv.fr : https://www.data.gouv.fr/fr/datasets/recensement-de-la-population-fichiers-detail-individus-localises-au-canton-ou-ville/",
     "crumbs": [
       "Parquet",
       "Hello world"
