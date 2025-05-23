@@ -1,6 +1,8 @@
 ::: {.content-visible when-profile="fr"}
 # Ecosystème data : S3, duckDB, parquet
 
+![Qrcode](qrcode.png)
+
 ## Contexte
 
 Ce site propose un aperçu d'une partie de l'écosystème moderne de traitement de données en abordant 3 technologies :  
