@@ -14,8 +14,4 @@ Confirmer qu'on peut bien accéder avec `mc ls s3/votreidentifiant`
 
 Vous avez aussi, via Onyxia, accès à une interface graphique cliente S3 (onglet `mes fichiers`)
 
-## Utilisation  
-
-
-
 

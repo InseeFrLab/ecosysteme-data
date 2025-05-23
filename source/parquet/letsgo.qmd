@@ -1,5 +1,9 @@
 # Parquet, let's go !  
 
-Pour pratiquer du parquet on va utiliser DuckDB mais il est tout à fait possible d'exploiter les fichiers parquet directement en utilisant les bibliothèques adaptées à votre langage (cf )  
+Pour pratiquer du parquet on va utiliser DuckDB mais il est tout à fait possible d'exploiter les fichiers parquet directement en utilisant les bibliothèques adaptées à votre langage (cf [le mémo ](./memo.qmd)).  
+
+Données du RP sur data.gouv.fr : https://www.data.gouv.fr/fr/datasets/recensement-de-la-population-fichiers-detail-individus-localises-au-canton-ou-ville/  
+
+
 
 
